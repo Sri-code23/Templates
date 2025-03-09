@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Projects Portfolio</title>
+    <style>
+        :root {
+            --bg-color: #1e1e1e;
+            --text-color: #d4d4d4;
+            --card-bg: #252526;
+            --accent-color: #0078d4;
+            --code-bg: #1e1e1e;
+            --switch-bg: #333333;
+            --switch-active: #0078d4;
+            
+            /* VS Code syntax highlighting colors */
+            --tag-color: #569cd6;
+            --attr-color: #9cdcfe;
+            --string-color: #ce9178;
+            --selector-color: #d7ba7d;
+            --property-color: #9cdcfe;
+            --value-color: #ce9178;
+            --keyword-color: #c586c0;
+            --function-color: #dcdcaa;
+            --comment-color: #6a9955;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            color: var(--text-color);
+            font-weight: 300;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            background-color: var(--card-bg);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .project-title {
+            font-size: 1.25rem;
+            font-weight: 500;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .view-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            gap: 0.5rem;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 160px;
+            height: 32px;
+            background: var(--switch-bg);
+            border-radius: 16px;
+            padding: 2px;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            width: 78px;
+            height: 28px;
+            background: var(--switch-active);
+            border-radius: 14px;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-switch[data-view="preview"] .toggle-slider {
+            transform: translateX(78px);
+        }
+
+        .toggle-labels {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10px;
+            color: var(--text-color);
+            font-size: 0.875rem;
+            line-height: 28px;
+            z-index: 1;
+        }
+
+        .toggle-label {
+            flex: 1;
+            text-align: center;
+            user-select: none;
+        }
+
+        .code-container {
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .preview-container {
+            display: none;
+            background: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            height: 300px;
+        }
+
+        .project-card[data-view="preview"] .code-container {
+            display: none;
+        }
+
+        .project-card[data-view="preview"] .preview-container {
+            display: block;
+        }
+
+        .code-tabs {
+            display: flex;
+            margin-bottom: 0.5rem;
+            gap: 0.25rem;
+        }
+
+        .code-tab {
+            padding: 0.5rem 1rem;
+            background: var(--code-bg);
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .code-tab.active {
+            opacity: 1;
+            background: var(--accent-color);
+        }
+
+        .code-editor {
+            background: var(--code-bg);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            font-family: 'Consolas', 'Monaco', monospace;
+            width: 100%;
+            height: 300px;
+            color: var(--text-color);
+            border: none;
+            resize: none;
+            line-height: 1.5;
+            tab-size: 2;
+            font-size: 0.875rem;
+            white-space: pre;
+            overflow-x: auto;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: white;
+        }
+
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Syntax highlighting classes */
+        .highlight-html {
+            color: var(--tag-color);
+        }
+
+        .highlight-attr {
+            color: var(--attr-color);
+        }
+
+        .highlight-string {
+            color: var(--string-color);
+        }
+
+        .highlight-selector {
+            color: var(--selector-color);
+        }
+
+        .highlight-property {
+            color: var(--property-color);
+        }
+
+        .highlight-value {
+            color: var(--value-color);
+        }
+
+        .highlight-keyword {
+            color: var(--keyword-color);
+        }
+
+        .highlight-function {
+            color: var(--function-color);
+        }
+
+        .highlight-comment {
+            color: var(--comment-color);
+        }
+    </style>
+</head>
+<body>
+    <h1>My Projects</h1>
+    <div class="projects-grid" id="projectsContainer"></div>
+
+    <script>
+        const projects = [
+            {
+                title: "Animated Button",
+                html: `<button class="fancy-button">Hover Me</button>`,
+                css: `.fancy-button {
+    padding: 12px 24px;
+    background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+    border: none;
+    border-radius: 25px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.fancy-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+}`,
+                js: `document.querySelector('.fancy-button').addEventListener('click', () => {
+    const button = document.querySelector('.fancy-button');
+    button.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+        button.style.transform = 'translateY(-2px)';
+    }, 100);
+});`
+            },
+            {
+                title: "Color Palette Generator",
+                html: `<div class="palette-container">
+    <div class="color-grid" id="colorGrid"></div>
+    <button id="generateBtn">Generate Palette</button>
+</div>`,
+                css: `.palette-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.color-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.color-box {
+    aspect-ratio: 1;
+    border-radius: 8px;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.color-box:hover {
+    transform: scale(1.05);
+}
+
+#generateBtn {
+    padding: 10px 20px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}`,
+                js: `function generateColor() {
+    const hue = Math.floor(Math.random() * 360);
+    const saturation = 70 + Math.random() * 30;
+    const lightness = 40 + Math.random() * 20;
+    return \`hsl(\${hue}, \${saturation}%, \${lightness}%)\`;
+}
+
+function generatePalette() {
+    const grid = document.getElementById('colorGrid');
+    grid.innerHTML = '';
+    
+    for (let i = 0; i < 5; i++) {
+        const box = document.createElement('div');
+        const color = generateColor();
+        box.className = 'color-box';
+        box.style.backgroundColor = color;
+        box.title = 'Click to copy';
+        box.onclick = () => {
+            navigator.clipboard.writeText(color);
+            box.style.transform = 'scale(0.95)';
+            setTimeout(() => box.style.transform = '', 200);
+        };
+        grid.appendChild(box);
+    }
+}
+
+document.getElementById('generateBtn').onclick = generatePalette;
+generatePalette();`
+            },
+            {
+                title: "Todo List",
+                html: `<div class="todo-app">
+    <div class="todo-header">
+        <input type="text" id="todoInput" placeholder="Add a new task...">
+        <button id="addTodo">Add</button>
+    </div>
+    <ul id="todoList"></ul>
+</div>`,
+                css: `.todo-app {
+    max-width: 400px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.todo-header {
+    display: flex;
+    gap: 8px;
+    padding: 16px;
+    background: #f5f5f5;
+}
+
+#todoInput {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#addTodo {
+    padding: 8px 16px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#todoList {
+    list-style: none;
+    padding: 16px;
+}
+
+.todo-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.todo-item input[type="checkbox"] {
+    margin: 0;
+}
+
+.todo-item.completed span {
+    text-decoration: line-through;
+    color: #888;
+}`,
+                js: `const todoInput = document.getElementById('todoInput');
+const addTodo = document.getElementById('addTodo');
+const todoList = document.getElementById('todoList');
+
+function addTodoItem() {
+    const text = todoInput.value.trim();
+    if (!text) return;
+
+    const li = document.createElement('li');
+    li.className = 'todo-item';
+    
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.onchange = () => {
+        li.classList.toggle('completed', checkbox.checked);
+    };
+
+    const span = document.createElement('span');
+    span.textContent = text;
+
+    li.appendChild(checkbox);
+    li.appendChild(span);
+    todoList.appendChild(li);
+    
+    todoInput.value = '';
+}
+
+addTodo.onclick = addTodoItem;
+todoInput.onkeypress = (e) => {
+    if (e.key === 'Enter') addTodoItem();
+};`
+            },
+            {
+                title: "Image Gallery",
+                html: `<div class="gallery">
+    <div class="gallery-grid" id="galleryGrid"></div>
+    <div class="modal" id="modal">
+        <img id="modalImage">
+        <button class="modal-close">&times;</button>
+    </div>
+</div>`,
+                css: `.gallery {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 16px;
+    padding: 16px;
+}
+
+.gallery-item {
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.gallery-item:hover {
+    transform: scale(1.05);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal img {
+    max-width: 90%;
+    max-height: 90vh;
+    border-radius: 8px;
+}
+
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 32px;
+    cursor: pointer;
+}`,
+                js: `const images = [
+    'https://picsum.photos/id/1018/800/800',
+    'https://picsum.photos/id/1015/800/800',
+    'https://picsum.photos/id/1019/800/800',
+    'https://picsum.photos/id/1016/800/800',
+    'https://picsum.photos/id/1020/800/800',
+    'https://picsum.photos/id/1021/800/800'
+];
+
+const grid = document.getElementById('galleryGrid');
+const modal = document.getElementById('modal');
+const modalImage = document.getElementById('modalImage');
+
+images.forEach(src => {
+    const item = document.createElement('div');
+    item.className = 'gallery-item';
+    
+    const img = document.createElement('img');
+    img.src = src;
+    img.loading = 'lazy';
+    
+    item.onclick = () => {
+        modalImage.src = src;
+        modal.style.display = 'flex';
+    };
+    
+    item.appendChild(img);
+    grid.appendChild(item);
+});
+
+modal.onclick = (e) => {
+    if (e.target === modal || e.target.className === 'modal-close') {
+        modal.style.display = 'none';
+    }
+};`
+            },
+            {
+                title: "Animated Clock",
+                html: `<div class="clock">
+    <div class="hand hour-hand"></div>
+    <div class="hand minute-hand"></div>
+    <div class="hand second-hand"></div>
+    <div class="center-dot"></div>
+    <div class="markers"></div>
+</div>`,
+                css: `.clock {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: white;
+    border: 10px solid #333;
+    position: relative;
+    margin: 50px auto;
+}
+
+.hand {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform-origin: 50% 100%;
+    background: #333;
+    border-radius: 4px;
+}
+
+.hour-hand {
+    width: 4px;
+    height: 60px;
+    margin-left: -2px;
+}
+
+.minute-hand {
+    width: 3px;
+    height: 80px;
+    margin-left: -1.5px;
+    background: #666;
+}
+
+.second-hand {
+    width: 2px;
+    height: 90px;
+    margin-left: -1px;
+    background: #f00;
+}
+
+.center-dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    margin: -6px 0 0 -6px;
+    background: #333;
+    border-radius: 50%;
+}
+
+.markers {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.markers::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 100%;
+    background: #333;
+    left: 50%;
+    margin-left: -2px;
+}
+
+.markers::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background: #333;
+    top: 50%;
+    margin-top: -2px;
+}`,
+                js: `function updateClock() {
+    const now = new Date();
+    const seconds = now.getSeconds();
+    const minutes = now.getMinutes();
+    const hours = now.getHours() % 12;
+
+    const secondDeg = (seconds / 60) * 360;
+    const minuteDeg = ((minutes + seconds / 60) / 60) * 360;
+    const hourDeg = ((hours + minutes / 60) / 12) * 360;
+
+    const secondHand = document.querySelector('.second-hand');
+    const minuteHand = document.querySelector('.minute-hand');
+    const hourHand = document.querySelector('.hour-hand');
+
+    secondHand.style.transform = \`rotate(\${secondDeg}deg)\`;
+    minuteHand.style.transform = \`rotate(\${minuteDeg}deg)\`;
+    hourHand.style.transform = \`rotate(\${hourDeg}deg)\`;
+}
+
+setInterval(updateClock, 1000);
+updateClock();`
+            }
+        ];
+
+        function highlightCode(code, type) {
+            if (type === 'html') {
+                return code.replace(
+                    /(&lt;[\/]?\w+)|(\s\w+="[^"]*")|("[^"]*")/g,
+                    match => {
+                        if (match.startsWith('&lt;')) return `<span class="highlight-html">${match}</span>`;
+                        if (match.startsWith(' ')) return `<span class="highlight-attr">${match}</span>`;
+                        return `<span class="highlight-string">${match}</span>`;
+                    }
+                );
+            } else if (type === 'css') {
+                return code.replace(
+                    /([\.\#]?\w+\s*\{)|([\w-]+\s*:)|(:\s*[^;]+;)/g,
+                    match => {
+                        if (match.includes('{')) return `<span class="highlight-selector">${match}</span>`;
+                        if (match.includes(':') && !match.includes(';')) return `<span class="highlight-property">${match}</span>`;
+                        return `<span class="highlight-value">${match}</span>`;
+                    }
+                );
+            } else if (type === 'js') {
+                return code.replace(
+                    /(function|const|let|var|return|if|else|for|while)|\b(\w+)\(|('[^']*'|"[^"]*")/g,
+                    match => {
+                        if (/^(function|const|let|var|return|if|else|for|while)$/.test(match)) {
+                            return `<span class="highlight-keyword">${match}</span>`;
+                        }
+                        if (match.endsWith('(')) return `<span class="highlight-function">${match}</span>`;
+                        return `<span class="highlight-string">${match}</span>`;
+                    }
+                );
+            }
+            return code;
+        }
+
+        function createProjectCard(project) {
+            const card = document.createElement('div');
+            card.className = 'project-card';
+            card.setAttribute('data-view', 'code');
+
+            const htmlCode = project.html.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            const cssCode = project.css;
+            const jsCode = project.js;
+
+            card.innerHTML = `
+                <h2 class="project-title">${project.title}</h2>
+                <div class="view-toggle">
+                    <div class="toggle-switch" data-view="code">
+                        <div class="toggle-slider"></div>
+                        <div class="toggle-labels">
+                            <span class="toggle-label">Code</span>
+                            <span class="toggle-label">Preview</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="code-container">
+                    <div class="code-tabs">
+                        <button class="code-tab active" onclick="switchTab(this, 'html')">HTML</button>
+                        <button class="code-tab" onclick="switchTab(this, 'css')">CSS</button>
+                        <button class="code-tab" onclick="switchTab(this, 'js')">JS</button>
+                    </div>
+                    <pre class="code-editor" data-type="html">${highlightCode(htmlCode, 'html')}</pre>
+                    <pre class="code-editor" data-type="css" style="display: none">${highlightCode(cssCode, 'css')}</pre>
+                    <pre class="code-editor" data-type="js" style="display: none">${highlightCode(jsCode, 'js')}</pre>
+                </div>
+                <div class="preview-container">
+                    <iframe></iframe>
+                </div>
+            `;
+
+            const toggleSwitch = card.querySelector('.toggle-switch');
+            toggleSwitch.addEventListener('click', () => {
+                const currentView = card.getAttribute('data-view');
+                const newView = currentView === 'code' ? 'preview' : 'code';
+                card.setAttribute('data-view', newView);
+                toggleSwitch.setAttribute('data-view', newView);
+                
+                if (newView === 'preview') {
+                    const iframe = card.querySelector('iframe');
+                    const content = `
+                        <!DOCTYPE html>
+                        <html>
+                        <head>
+                            <style>${project.css}</style>
+                        </head>
+                        <body>
+                            ${project.html}
+                            <script>${project.js}<\/script>
+                        </body>
+                        </html>
+                    `;
+                    iframe.srcdoc = content;
+                }
+            });
+
+            return card;
+        }
+
+        function switchTab(tab, type) {
+            const card = tab.closest('.project-card');
+            const tabs = card.querySelectorAll('.code-tab');
+            const editors = card.querySelectorAll('.code-editor');
+
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            editors.forEach(editor => {
+                editor.style.display = editor.dataset.type === type ? 'block' : 'none';
+            });
+        }
+
+        // Initialize projects
+        const container = document.getElementById('projectsContainer');
+        projects.forEach(project => {
+            const card = createProjectCard(project);
+            container.appendChild(card);
+        });
+    </script>
+</body>
+</html>

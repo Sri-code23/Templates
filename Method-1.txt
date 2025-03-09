@@ -1,0 +1,249 @@
+Complete Guide: Installing OpenWebUI for Ollama on Windows (Using WSL & Docker)
+
+This guide will walk you through installing OpenWebUI to manage your Ollama models using WSL (Windows Subsystem for Linux) and Docker.
+
+
+---
+
+Step 1: Enable WSL (Windows Subsystem for Linux)
+
+1.1 Install WSL
+
+Open PowerShell as Administrator and run:
+
+wsl --install
+
+This will install WSL 2 and Ubuntu as the default distribution.
+
+> ✅ If WSL is already installed, check your version:
+
+
+
+wsl --list --verbose
+
+Ensure it shows VERSION = 2 for Ubuntu. If not, upgrade with:
+
+wsl --set-version Ubuntu 2
+
+1.2 Restart your computer
+
+This ensures WSL is fully installed.
+
+
+---
+
+Step 2: Install Docker for Windows
+
+2.1 Download Docker Desktop
+
+Go to: Docker Official Site
+
+Download and install Docker Desktop for Windows.
+
+During installation, enable WSL integration.
+
+
+2.2 Enable WSL 2 Backend in Docker
+
+Open Docker Desktop → Settings
+
+Go to General → Enable "Use the WSL 2 based engine"
+
+Apply changes and restart Docker.
+
+
+2.3 Allow Docker to Use WSL
+
+In Docker Settings → Resources → WSL Integration
+
+Enable Docker for your Ubuntu WSL distribution.
+
+
+
+---
+
+Step 3: Open Ubuntu (WSL) and Update Packages
+
+Launch Ubuntu (WSL) and run:
+
+sudo apt update && sudo apt upgrade -y
+
+This ensures your system is up to date.
+
+
+---
+
+Step 4: Install Docker in WSL
+
+Now, install Docker inside WSL:
+
+sudo apt install ca-certificates curl -y
+
+Then, add the Docker GPG key:
+
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo tee /etc/apt/keyrings/docker.asc > /dev/null
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+Add the Docker repository:
+
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] \
+  https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+Update and install Docker:
+
+sudo apt update
+sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+
+Verify Docker installation:
+
+docker --version
+
+
+---
+
+Step 5: Add User to Docker Group
+
+To run Docker without sudo, add yourself to the Docker group:
+
+sudo usermod -aG docker $USER
+newgrp docker
+
+Check if Docker works without sudo:
+
+docker run hello-world
+
+If it prints Hello from Docker!, you’re good to go.
+
+
+---
+
+Step 6: Install Ollama
+
+Now, install Ollama to manage your AI models.
+
+6.1 Download and Install Ollama
+
+Run the following command in Ubuntu WSL:
+
+curl -fsSL https://ollama.com/install.sh | sh
+
+6.2 Verify Ollama Installation
+
+Check if Ollama is installed properly:
+
+ollama --version
+
+6.3 Download a Model
+
+For example, download the LLaMA 3 model:
+
+ollama pull llama3
+
+
+---
+
+Step 7: Install OpenWebUI
+
+Now, we will install OpenWebUI to provide a web-based UI for Ollama.
+
+7.1 Run OpenWebUI using Docker
+
+docker run -d --network=host \
+  -v open-webui:/app/backend/data \
+  -e OLLAMA_BASE_URL=http://127.0.0.1:11434 \
+  --name open-webui --restart always \
+  ghcr.io/open-webui/open-webui:main
+
+This command:
+
+Runs OpenWebUI in the background.
+
+Connects it to Ollama via http://127.0.0.1:11434.
+
+Ensures data persistence using Docker volumes.
+
+
+7.2 Verify OpenWebUI is Running
+
+Check running Docker containers:
+
+docker ps
+
+It should list open-webui as running.
+
+
+---
+
+Step 8: Access OpenWebUI
+
+Now, open your browser and go to:
+
+http://localhost:3000
+
+This will launch OpenWebUI where you can interact with your Ollama model.
+
+
+---
+
+Step 9: Test OpenWebUI
+
+1. Login (or create an account if prompted).
+
+
+2. Select LLaMA 3 or any other model you downloaded.
+
+
+3. Type a question and check if the response works correctly.
+
+
+
+
+---
+
+Step 10: (Optional) Restart OpenWebUI
+
+If you need to restart the OpenWebUI container:
+
+docker restart open-webui
+
+To stop it:
+
+docker stop open-webui
+
+To remove it completely:
+
+docker rm open-webui
+
+
+---
+
+Final Summary
+
+1. Install WSL (wsl --install and restart PC).
+
+
+2. Install Docker Desktop (Enable WSL integration).
+
+
+3. Install Docker in WSL (Set up repository and install Docker Engine).
+
+
+4. Install Ollama (Download AI models).
+
+
+5. Run OpenWebUI (Using Docker).
+
+
+6. Access OpenWebUI (http://localhost:3000).
+
+
+7. Test your AI model in OpenWebUI.
+
+
+
+
+--

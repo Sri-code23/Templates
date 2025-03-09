@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sliding Blocks Animation</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: #111827;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1024px;
+    }
+
+    .slider-container {
+      position: relative;
+      overflow: hidden;
+      padding: 1rem 0;
+      margin-bottom: 2rem;
+    }
+
+    .slider {
+      --duration: 30s;
+      --direction: 1;
+    }
+
+    .slider-track {
+      display: flex;
+      width: fit-content;
+      animation: scroll var(--duration) linear infinite;
+      animation-direction: var(--direction, 1);
+    }
+
+    .slider-track:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes scroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(calc(-50% - 1rem));
+      }
+    }
+
+    .slider-item {
+      flex: 0 0 auto;
+      width: 100px;
+      height: 100px;
+      margin: 1rem;
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .slider-item:hover {
+      transform: scale(1.05);
+    }
+
+    .slider-item svg {
+      width: 2rem;
+      height: 2rem;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- First Row - Left to Right -->
+    <div class="slider-container">
+      <div class="slider" style="--direction: 1">
+        <div class="slider-track" id="track1"></div>
+      </div>
+    </div>
+
+    <!-- Second Row - Right to Left -->
+    <div class="slider-container">
+      <div class="slider" style="--direction: -1">
+        <div class="slider-track" id="track2"></div>
+      </div>
+    </div>
+
+    <!-- Third Row - Left to Right -->
+    <div class="slider-container">
+      <div class="slider" style="--direction: 1">
+        <div class="slider-track" id="track3"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // SVG icon for the blocks
+    const boxIcon = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/>
+      <path d="m7 16.5-4.74-2.85"/>
+      <path d="m7 16.5 5-3"/>
+      <path d="M7 16.5v5.17"/>
+      <path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/>
+      <path d="m17 16.5-5-3"/>
+      <path d="m17 16.5 4.74-2.85"/>
+      <path d="M17 16.5v5.17"/>
+      <path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/>
+      <path d="M12 8 7.26 5.15"/>
+      <path d="m12 8 4.74-2.85"/>
+      <path d="M12 13.5V8"/>
+    </svg>
+    `;
+
+    // Colors for the blocks
+    const colors = [
+      '#3B82F6', // blue
+      '#8B5CF6', // purple
+      '#10B981', // green
+      '#F59E0B', // yellow
+      '#EF4444', // red
+      '#6366F1'  // indigo
+    ];
+
+    // Function to create a block element
+    function createBlock(color) {
+      const block = document.createElement('div');
+      block.className = 'slider-item';
+      block.style.backgroundColor = color;
+      block.innerHTML = boxIcon;
+      return block;
+    }
+
+    // Function to initialize a track with blocks
+    function initializeTrack(trackId, blockCount = 8) {
+      const track = document.getElementById(trackId);
+      const blocks = [];
+
+      // Create initial blocks
+      for (let i = 0; i < blockCount; i++) {
+        const block = createBlock(colors[i % colors.length]);
+        blocks.push(block);
+      }
+
+      // Duplicate blocks for seamless scrolling
+      blocks.forEach(block => {
+        track.appendChild(block.cloneNode(true));
+      });
+      blocks.forEach(block => {
+        track.appendChild(block.cloneNode(true));
+      });
+    }
+
+    // Initialize all tracks
+    initializeTrack('track1');
+    initializeTrack('track2');
+    initializeTrack('track3');
+  </script>
+</body>
+</html>

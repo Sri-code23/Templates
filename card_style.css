@@ -1,0 +1,195 @@
+body{
+    background-color: rgb(0, 0, 0);
+    padding:20px 20px;
+    margin: 20px 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.whole{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.container{
+    position:relative;
+    background-color: rgb(0, 0, 0);
+    width: 250px;
+    height: 250px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card1, .card2, .card3,.card4 h2{
+    color: #5c5c5c;
+    font-size: 20px;
+}
+
+.card1, .card2, .card3, .card4{
+    position: absolute;
+    background-color: #000000;
+    border: 1px solid #333;
+    width: 150px;
+    height: 180px;
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(0, 0, 0);
+    height: 99.3%;
+    width: 99.3%;
+    border-radius: 5px;
+}
+
+.card1::before{
+    content: "";
+    /* display: block; */
+    position: absolute;
+    width: 200px;
+    height: 190%;
+    background: linear-gradient(90deg, transparent, #ff5e00, #ff5e00, #ff5e00, transparent);
+    animation: rotation 5000ms infinite linear; 
+
+}
+.card2::before{
+    content: "";
+    /* display: block; */
+    position: absolute;
+    width: 200px;
+    height: 190%;
+    background: linear-gradient(90deg, transparent, #007a99, #00ff15, #ff0000,#fffb00, transparent);
+    animation: rotation 5000ms infinite linear; 
+}
+.card3::before{
+    content: "";
+    /* display: block; */
+    position: absolute;
+    width: 200px;
+    height: 190%;
+    background: linear-gradient(90deg, transparent,#ff009d, #e100ff,  #9900ff, #1100ff, #002fff,transparent);
+    animation: rotation 5000ms infinite linear; 
+}
+.card4::before{
+    content: "";
+    /* display: block; */
+    position: absolute;
+    width: 300px;
+    height: 190%;
+    background: linear-gradient(90deg, transparent, #00a05d, #005834, #00a05d, transparent);
+    animation: rotation 5000ms infinite linear; 
+}
+
+@keyframes rotation {
+    0%{
+        transform: rotate(0deg);
+    }
+    0%{
+        transform: rotate(360deg);
+    }
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
+.container{
+    position: relative;
+    display:flex;
+    flex-wrap:wrap;
+    gap: 60px 60px;
+    background-color: rgb(39, 107, 107);
+    padding: 40px 40px;
+    overflow: hidden;
+    width:200px;
+    height: 10px;
+}
+
+.card{
+    position: absolute;
+    margin-top: 600px;
+    width: 300px;
+    height:200px;
+    background-color: #5a0c0c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.content{
+    position: absolute;
+    width: 99.3%;
+    height: 99.3%;
+    background-color: #000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    border-radius:5px;
+}
+
+.card::before {
+    position: absolute;
+    content: '';
+    display: block;
+    width: 200px;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, #740027, #c300ff, #4400ff, #0021b3, #002d58, transparent);
+    /* animation: rotation 5000ms infinite linear; 
+}
+
+@keyframes rotation {
+    0%{
+        transform: rotate(0deg);
+    }
+    0%{
+        transform: rotate(360deg);
+    }
+} */
+
+
+

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why Choose Us - Flowers & Saints</title>
+    <link rel="stylesheet" href="why-choose-us.css">
+</head>
+<body>
+    <section class="feature-carousel">
+        <div class="container">
+            <h2 class="section-title">Why Choose Us</h2>
+            <div class="carousel" id="featureCarousel">
+                <div class="carousel-inner">
+                    <div class="feature-card">
+                        <div class="feature-icon">✨</div>
+                        <h3 class="feature-title">Minimal Design</h3>
+                        <p class="feature-description">Clean aesthetics that put your content in the spotlight.</p>
+                        <a href="https://www.flowersandsaints.com.au" target="_blank" rel="noopener noreferrer" class="feature-link">Learn more →</a>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <h3 class="feature-title">Responsive</h3>
+                        <p class="feature-description">Flawless experiences across all devices and screen sizes.</p>
+                        <a href="https://www.flowersandsaints.com.au" target="_blank" rel="noopener noreferrer" class="feature-link">Learn more →</a>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3 class="feature-title">Fast Performance</h3>
+                        <p class="feature-description">Lightning-quick load times for smooth user interactions.</p>
+                        <a href="https://www.flowersandsaints.com.au" target="_blank" rel="noopener noreferrer" class="feature-link">Learn more →</a>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🌈</div>
+                        <h3 class="feature-title">Accessibility</h3>
+                        <p class="feature-description">Inclusive design practices for all users.</p>
+                        <a href="https://www.flowersandsaints.com.au" target="_blank" rel="noopener noreferrer" class="feature-link">Learn more →</a>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔍</div>
+                        <h3 class="feature-title">SEO Optimized</h3>
+                        <p class="feature-description">Built to help your site rank higher in search results.</p>
+                        <a href="https://www.flowersandsaints.com.au" target="_blank" rel="noopener noreferrer" class="feature-link">Learn more →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="why-choose-us.js"></script>
+</body>
+</html>
+
+:root {
+    --background: #ffffff;
+    --foreground: #000000;
+    --primary: #3b82f6;
+    --secondary: #e5e7eb;
+    --muted: #6b7280;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background);
+    color: var(--foreground);
+}
+
+.feature-carousel {
+    padding: 5rem 1rem;
+    background: linear-gradient(to bottom, var(--background), var(--secondary));
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.carousel {
+    overflow: hidden;
+    cursor: grab;
+}
+
+.carousel:active {
+    cursor: grabbing;
+}
+
+.carousel-inner {
+    display: flex;
+    transition: transform 0.3s ease-out;
+}
+
+.feature-card {
+    min-width: 300px;
+    height: 400px;
+    padding: 2rem;
+    margin: 1rem;
+    background-color: var(--background);
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s ease-in-out;
+    border: 2px solid transparent;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    border-color: rgba(59, 130, 246, 0.1);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.feature-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.feature-description {
+    color: var(--muted);
+    margin-bottom: 1rem;
+}
+
+.feature-link {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.feature-link:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+    .feature-card {
+        min-width: 250px;
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const carousel = document.getElementById("featureCarousel")
+  const inner = carousel.querySelector(".carousel-inner")
+  let isDown = false
+  let startX
+  let scrollLeft
+
+  carousel.addEventListener("mousedown", (e) => {
+    isDown = true
+    carousel.classList.add("active")
+    startX = e.pageX - carousel.offsetLeft
+    scrollLeft = carousel.scrollLeft
+  })
+
+  carousel.addEventListener("mouseleave", () => {
+    isDown = false
+    carousel.classList.remove("active")
+  })
+
+  carousel.addEventListener("mouseup", () => {
+    isDown = false
+    carousel.classList.remove("active")
+  })
+
+  carousel.addEventListener("mousemove", (e) => {
+    if (!isDown) return
+    e.preventDefault()
+    const x = e.pageX - carousel.offsetLeft
+    const walk = (x - startX) * 2
+    carousel.scrollLeft = scrollLeft - walk
+  })
+
+  // Touch events for mobile
+  carousel.addEventListener("touchstart", (e) => {
+    isDown = true
+    carousel.classList.add("active")
+    startX = e.touches[0].pageX - carousel.offsetLeft
+    scrollLeft = carousel.scrollLeft
+  })
+
+  carousel.addEventListener("touchend", () => {
+    isDown = false
+    carousel.classList.remove("active")
+  })
+
+  carousel.addEventListener("touchmove", (e) => {
+    if (!isDown) return
+    e.preventDefault()
+    const x = e.touches[0].pageX - carousel.offsetLeft
+    const walk = (x - startX) * 2
+    carousel.scrollLeft = scrollLeft - walk
+  })
+
+  // Animate on scroll
+  const animateOnScroll = () => {
+    const cards = document.querySelectorAll(".feature-card")
+    cards.forEach((card, index) => {
+      const rect = card.getBoundingClientRect()
+      const isVisible = rect.top < window.innerHeight && rect.bottom >= 0
+      if (isVisible) {
+        card.style.opacity = "1"
+        card.style.transform = "translateY(0)"
+      } else {
+        card.style.opacity = "0"
+        card.style.transform = "translateY(20px)"
+      }
+      card.style.transitionDelay = `${index * 0.1}s`
+    })
+  }
+
+  window.addEventListener("scroll", animateOnScroll)
+  animateOnScroll() // Initial check
+})
+

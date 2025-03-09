@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Website</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="slider.css">
+    <link rel="stylesheet" href="parallax.css">
+    <link rel="stylesheet" href="about_slide.css">
+    <link rel="stylesheet" href="contact.css">
+    <link rel="stylesheet" href="new_projects.css">
+    <link rel="stylesheet" href="card_swip.css">
+    <link rel="stylesheet" href="skills.css">
+    <!-- <link rel="stylesheet" href="blog-card.css"> -->
+    <!-- <link rel="stylesheet" href="blog-animat.css"> -->
+</head>
+<body>
+    <div class="nav-container">
+        <nav>
+            <div class="logo">Sri</div>
+            <div class="mobile-menu">☰</div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#skills-section">skills</a>
+                <a href="#Services">Services</a>
+                <a href="#project_section">Projects</a>
+                <a href="#feature-carousell">Blog</a>
+                <a href="#contact_section">Contact</a>
+            </div>
+        </nav>
+    </div>
+
+    <div class="background">
+        <div class="symbols"></div>
+    </div>
+
+    <section id="home">
+        <div class="container">
+            <!-- <div class="profile">
+                <img src="images/PROFILE_PIC.jpg" alt="Profile Image">
+            </div> -->
+            <div class="text-content">
+                <h3 class="h2head">Hi there, I am</h3>
+                <h2 class="subtitle">Sridharan</h2>
+                <h1 id="changing-text">I'm a Developer</h1>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <h1 id="each_heading">About Me</h1>
+        <div class="about_container">
+            <div class="whoiam">
+                <h4 id="who">Who am I</h4>
+                <p id="ppa">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Autem repudiandae qui, quisquam dicta odio modi doloribus natus saepe reprehenderit molestiae alias blanditiis ipsum sequi nesciunt commodi neque, eum dolorem! Perspiciatis.</p>
+            </div>
+            <div class="whatido">
+                <h4 id="who">What I do</h4>
+                <p id="ppa">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere aperiam, fuga itaque saepe voluptatibus ipsum. Voluptatibus commodi iste saepe maiores eum quis consectetur consequatur! Incidunt maiores esse accusamus ad necessitatibus.</p>
+            </div>
+        </div>
+        <!-- <p style="padding-top: 25px;">
+            I am a Passionate and driven Electronics and Communication Engineering graduate with a strong 
+            foundation in <b style="color:#00aa71;font-size: large;">Python programming, web development and database management.</b>
+            Throughout my academic journey, i have developed akeen interest in software development 
+            and am eager to apply my skills to reak world IT projects.
+            With a knack for problem solving and logical reasoning, i strive to innovate and improve processes,
+             aiming to deliver high-quality results in every tasks i undertake. i have deep interest in scalable software solution
+            that solve real-world problems and i am always looking for oppurtunities to expand my knowledge in the rapidly evolving IT industry.
+            
+            i possess both technical and softskills that enable me to collabrate effectively 
+            in teams and adapt to new challenges. With a solid understanding of version control tools like 
+            <b style="color:#00aa71;font-size: large;">Git</b>, and experience in web technologies such as <b style="color:#00aa71;font-size: large;"> HTML, CSS, C# and SQL,</b>
+            I am excited to contribute to projects that push the boundaries of technology.
+            In addition to my technical expertise, i have honed my <b style="color:#00aa71;font-size: large;">strategic thinking, logical thinking & reasoning, teamwork skills</b>, which i believe are essential for thriving in collaborative environments 
+            and making contributions to organizational goals
+        </p> -->
+        <div class="silde_container">
+            <div class="scroll-wrapper">
+                <!-- Elements will be added dynamically via JS -->
+            </div>
+        </div>
+    </section>
+
+    <section id="skills-section">
+        <div class="skill_div">
+            <h1 id="each_heading"> Skills</h1>
+            <div class="skills-grid">
+                <div class="skill-item" data-skill="HTML5">
+                    <i class="fab fa-html5"></i>
+                    <div class="tooltip">
+                        <h3>HTML5</h3>
+                        <!-- <p>Semantic markup and structure</p> -->
+                    </div>
+                </div>
+                <div class="skill-item" data-skill="CSS3">
+                    <i class="fab fa-css3-alt"></i>
+                    <div class="tooltip">
+                        <h3>CSS3</h3>
+                        <!-- <p>Styling and responsive design</p> -->
+                    </div>
+                </div>
+                <div class="skill-item" data-skill="JavaScript">
+                    <i class="fab fa-js"></i>
+                    <div class="tooltip">
+                        <h3>JavaScript</h3>
+                        <!-- <p>Dynamic client-side scripting</p> -->
+                    </div>
+                </div>
+                <div class="skill-item" data-skill="React">
+                    <i class="fab fa-react"></i>
+                    <div class="tooltip">
+                        <h3>React</h3>
+                        <!-- <p>UI component library</p> -->
+                    </div>
+                </div>
+                <div class="skill-item" data-skill="Node.js">
+                    <i class="fab fa-node-js"></i>
+                    <div class="tooltip">
+                        <h3>Node.js</h3>
+                        <!-- <p>Server-side JavaScript runtime</p> -->
+                    </div>
+                </div>
+                <div class="skill-item" data-skill="Python">
+                    <i class="fab fa-python"></i>
+                    <div class="tooltip">
+                        <h3>Python</h3>
+                        <!-- <p>Versatile programming language</p> -->
+                    </div>
+                </div>
+                <div class="skill-item" data-skill="Django">
+                    <i class="fab fa-python"></i>
+                    <div class="tooltip">
+                        <h3>Django</h3>
+                        <!-- <p>High-level Python web framework</p> -->
+                    </div>
+                </div>
+                <div class="skill-item" data-skill="Flask">
+                    <i class="fab fa-python"></i>
+                    <div class="tooltip">
+                        <h3>Flask</h3>
+                        <!-- <p>Lightweight Python web framework</p> -->
+                    </div>
+                </div>
+                <div class="skill-item" data-skill="MySQL">
+                    <i class="fas fa-database"></i>
+                    <div class="tooltip">
+                        <h3>MySQL</h3>
+                        <!-- <p>Relational database management</p> -->
+                    </div>
+                </div>
+                <div class="skill-item" data-skill="Git">
+                    <i class="fab fa-git-alt"></i>
+                    <div class="tooltip">
+                        <h3>Git</h3>
+                        <!-- <p>Version control system</p> -->
+                    </div>
+                </div>
+                <div class="skill-item" data-skill="Docker">
+                    <i class="fab fa-docker"></i>
+                    <div class="tooltip">
+                        <h3>Docker</h3>
+                        <!-- <p>Containerization platform</p> -->
+                    </div>
+                </div>
+                <div class="skill-item" data-skill="Networking">
+                    <i class="fas fa-network-wired"></i>
+                    <div class="tooltip">
+                        <h3>Computer Networking</h3>
+                        <!-- <p>Network protocols and architecture</p> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <h1 id="each_heading">My Services</h1>
+        <!-- slider images -->
+         <!-- refer slider.css, slider.js -->
+        <div class="app-container">
+            <div class="background-animation" id="backgroundAnimation"></div>
+            <div class="content">
+                <div class="carousel-wrapper">
+                    <div class="carousel-viewport" id="carouselViewport"></div>
+                </div>
+                <div class="description-section">
+                    <div class="description-content" id="descriptionContent"></div>
+                </div>
+            </div>
+        </div>
+        <!------------------------------>
+    </section>
+
+    <section>
+        <div class="project_container">
+            <div id="image-track" data-mouse-down-at="0" data-prev-percentage="0">
+                <div class="project-card" data-index="0">
+                    <img class="image" src="https://images.unsplash.com/photo-1524781289445-ddf8f5695861?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80" alt="Project A" draggable="false" />
+                    <div class="project-card-title">Project A</div>
+                </div>
+                <div class="project-card" data-index="1">
+                    <img class="image" src="https://images.unsplash.com/photo-1610194352361-4c81a6a8967e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1674&q=80" alt="Project B" draggable="false" />
+                    <div class="project-card-title">Project B</div>
+                </div>
+                <div class="project-card" data-index="2">
+                    <img class="image" src="https://images.unsplash.com/photo-1618202133208-2907bebba9e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80" alt="Project C" draggable="false" />
+                    <div class="project-card-title">Project C</div>
+                </div>
+                <div class="project-card" data-index="3">
+                    <img class="image" src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80" alt="Project D" draggable="false" />
+                    <div class="project-card-title">Project D</div>
+                </div>
+                <div class="project-card" data-index="4">
+                    <img class="image" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80" alt="Project E" draggable="false" />
+                    <div class="project-card-title">Project E</div>
+                </div>
+                <div class="project-card" data-index="5">
+                    <img class="image" src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80" alt="Project F" draggable="false" />
+                    <div class="project-card-title">Project F</div>
+                </div>
+                <div class="project-card" data-index="6">
+                    <img class="image" src="https://images.unsplash.com/photo-1558655146-d09347e92766?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80" alt="Project G" draggable="false" />
+                    <div class="project-card-title">Project G</div>
+                </div>
+                <div class="project-card" data-index="7">
+                    <img class="image" src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80" alt="Project H" draggable="false" />
+                    <div class="project-card-title">Project H</div>
+                </div>
+            </div>
+            
+            <div class="expanded-overlay">
+                <div class="expanded-card">
+                    <div class="close-button"></div>
+                    <img class="expanded-image" src="/placeholder.svg" alt="Project Details">
+                    <div class="expanded-content">
+                        <h2></h2>
+                        <p></p>
+                        <div class="tech-stack"></div>
+                        <a href="#" class="project-link">View Project</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="minimized-cards"></div>
+            
+            <div class="slide-hint">
+                <div class="hint-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 18L15 12L9 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <span>Slide to explore projects</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- <section id="feature-carousell">
+        <div class="container_blo">
+            <h1 id="each_heading">Projects</h1>
+            <div class="carousell" id="featurecarousell">
+                <div class="carousell-inner">
+                    <div class="feature-card">
+                        <div class="close-icon"> ✖ </div>
+                         <div class="feature-icon">✨</div> 
+                        <h3 class="feature-title">Minimal Design</h3>
+                        <p class="feature-description">Clean aesthetics that put your content in the spotlight.</p>
+                        <div class="expanded-content">
+                            <img src="https://images.unsplash.com/photo-1517292987719-0369a794ec0f?w=600&auto=format&fit=crop&q=80" alt="Minimal Design" class="expanded-image">
+                            <p>Our minimal design philosophy ensures that your content takes center stage. We eliminate unnecessary clutter and focus on what truly matters - your message. Through careful typography, thoughtful spacing, and balanced layouts, we create an environment where your content can breathe and engage your audience effectively.</p>
+                        </div>
+                        <a href="#" class="feature-link">Learn more →</a>
+                    </div>
+                    <div class="feature-card">
+                        <div class="close-icon">✖</div>
+                        <!-- <div class="feature-icon">📱</div> 
+                        <h3 class="feature-title">Responsive</h3>
+                        <p class="feature-description">Flawless experiences across all devices and screen sizes.</p>
+                        <div class="expanded-content">
+                            <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=600&auto=format&fit=crop&q=80" alt="Responsive Design" class="expanded-image">
+                            <p>Our responsive design ensures your website looks and functions perfectly on every device. From mobile phones to tablets to desktop computers, we optimize the user experience for each screen size. This includes flexible layouts, adaptive images, and touch-friendly navigation.</p>
+                        </div>
+                        <a href="#" class="feature-link">Learn more →</a>
+                    </div>
+                    <div class="feature-card">
+                        <div class="close-icon">✖</div>
+                        <!-- <div class="feature-icon">⚡</div> 
+                        <h3 class="feature-title">Fast Performance</h3>
+                        <p class="feature-description">Lightning-quick load times for smooth user interactions.</p>
+                        <div class="expanded-content">
+                            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&auto=format&fit=crop&q=80" alt="Fast Performance" class="expanded-image">
+                            <p>Speed is crucial for user engagement. Our performance-optimized websites load quickly and respond instantly to user interactions. We achieve this through efficient code, optimized assets, and modern web technologies that ensure your visitors never have to wait.</p>
+                        </div>
+                        <a href="#" class="feature-link">Learn more →</a>
+                    </div>
+                    <div class="feature-card">
+                        <div class="close-icon">✖</div>
+                        <!-- <div class="feature-icon">🌈</div> 
+                        <h3 class="feature-title">Accessibility</h3>
+                        <p class="feature-description">Inclusive design practices for all users.</p>
+                        <div class="expanded-content">
+                            <img src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21?w=600&auto=format&fit=crop&q=80" alt="Accessibility" class="expanded-image">
+                            <p>We believe the web should be accessible to everyone. Our designs follow WCAG guidelines, ensuring that your website is usable by people with various abilities. This includes proper contrast ratios, keyboard navigation, screen reader compatibility, and more.</p>
+                        </div>
+                        <a href="#" class="feature-link">Learn more →</a>
+                    </div>
+                    <div class="feature-card">
+                        <div class="close-icon">✖</div>
+                        <!-- <div class="feature-icon">🔍</div> 
+                        <h3 class="feature-title">SEO Optimized</h3>
+                        <p class="feature-description">Built to help your site rank higher in search results.</p>
+                        <div class="expanded-content">
+                            <img src="https://images.unsplash.com/photo-1562577309-4932fdd64cd1?w=600&auto=format&fit=crop&q=80" alt="SEO Optimization" class="expanded-image">
+                            <p>Our SEO-first approach ensures your website is built to rank well in search engines. We implement proper semantic HTML, optimize meta tags, ensure fast loading times, and follow all modern SEO best practices to help your content reach its intended audience.</p>
+                        </div>
+                        <a href="#" class="feature-link">Learn more →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- <section id="gallery">
+        <div class="gall_container">
+            <h1 id="each_heading">Portfolio</h1>
+            <div class="gallery">
+                <img src="images/blog_board.jpg" class="gallery-item layer-1">
+                <img src="images/blog_safety.jpg" class="gallery-item layer-2">
+                <img src="images/factory.jpeg" class="gallery-item layer-3">
+                <img src="images/icon.jpg" class="gallery-item layer-4">
+                <img src="/popo/assets/iot_board.jpg" class="gallery-item layer-5"> -->
+                <!-- <img src="/popo/assets/library_py.jpg" class="gallery-item layer-6"> -->
+                <!-- <img src="/popo/assets/python_blog.jpg" class="gallery-item layer-7">
+                <img src="images/PROFILE_PIC.jpg" class="gallery-item layer-8">
+            </div>
+        </div> 
+        
+    </section>-->
+
+    <!-- <section id="project_section">
+        <div class="project-showcase">
+            <h1 id="each_heading">Our Projects</h1>
+            <div class="project-container">
+                <div class="project-slider" id="projectSlider"></div>
+                <button class="nav-button prev" id="prevButton">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+                <button class="nav-button next" id="nextButton">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+            </div>
+        </div>
+        <div class="popp" id="popp">
+            <div class="popp-content">
+                <button class="close-button" id="closepopp">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <img src="" alt="Project Image" id="poppImage">
+                <h2 id="poppTitle"></h2>
+                <p id="poppDescription"></p>
+                <div class="popp-buttons">
+                    <a href="#" target="_blank" rel="noopener noreferrer" class="github-button" id="githubLink">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                        View on GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- <section id="blogs_slide">
+        <div id="appi"></div>
+    </section> -->
+
+    <!-- <section class="blog_cont">
+        <div id="app">
+            <section class="blog-section">
+              <div class="blog-container">
+                <h2 class="section-title">My Blog</h2>
+                <div class="blog-grid">
+                  <article class="blog-card" data-category="Web Development">
+                    <div class="blog-card-inner">
+                      <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085" alt="Blog 1" />
+                      </div>
+                      <div class="blog-content">
+                        <span class="blog-category">Web Development</span>
+                        <h3 class="blog-title">Modern Web Development Practices</h3>
+                        <p class="blog-excerpt">Exploring the latest trends and best practices in modern web development...</p>
+                        <div class="blog-meta">
+                          <span class="blog-date">March 15, 2024</span>
+                          <span class="blog-read-time">5 min read</span>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+      
+                 Add more Blog Cards here if needed 
+                </div>
+              </div>
+            </section>
+      
+            ---Modal for full blog view ---
+            <div id="blog-modal" class="modal">
+              <div class="modal-content">
+                <span id="close-modal" class="close-btn">&times;</span>
+                <h2 class="modal-title">Modern Web Development Practices</h2>
+                <p class="modal-full-content">
+                  Full content of the blog post goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque euismod lorem a nulla euismod, non facilisis risus posuere. Cras aliquam mauris sapien, vel vehicula metus venenatis vel...
+                </p>
+              </div>
+            </div>
+          </div>
+    </section> -->
+
+    <section id="feature-carousell">
+        <div class="container_blo">
+            <h1 id="each_heading">Blogs</h1>
+            <div class="carousell" id="featurecarousell">
+                <div class="carousell-inner">
+                    <div class="feature-card">
+                        <div class="close-icon"> ✖ </div>
+                        <!-- <div class="feature-icon">✨</div> -->
+                        <h3 class="feature-title">Minimal Design</h3>
+                        <p class="feature-description">Clean aesthetics that put your content in the spotlight.</p>
+                        <div class="expanded-content">
+                            <img src="https://images.unsplash.com/photo-1517292987719-0369a794ec0f?w=600&auto=format&fit=crop&q=80" alt="Minimal Design" class="expanded-image">
+                            <p>Our minimal design philosophy ensures that your content takes center stage. We eliminate unnecessary clutter and focus on what truly matters - your message. Through careful typography, thoughtful spacing, and balanced layouts, we create an environment where your content can breathe and engage your audience effectively.</p>
+                        </div>
+                        <a href="#" class="feature-link">Learn more →</a>
+                    </div>
+                    <div class="feature-card">
+                        <div class="close-icon">✖</div>
+                        <!-- <div class="feature-icon">📱</div> -->
+                        <h3 class="feature-title">Responsive</h3>
+                        <p class="feature-description">Flawless experiences across all devices and screen sizes.</p>
+                        <div class="expanded-content">
+                            <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=600&auto=format&fit=crop&q=80" alt="Responsive Design" class="expanded-image">
+                            <p>Our responsive design ensures your website looks and functions perfectly on every device. From mobile phones to tablets to desktop computers, we optimize the user experience for each screen size. This includes flexible layouts, adaptive images, and touch-friendly navigation.</p>
+                        </div>
+                        <a href="#" class="feature-link">Learn more →</a>
+                    </div>
+                    <div class="feature-card">
+                        <div class="close-icon">✖</div>
+                        <!-- <div class="feature-icon">⚡</div> -->
+                        <h3 class="feature-title">Fast Performance</h3>
+                        <p class="feature-description">Lightning-quick load times for smooth user interactions.</p>
+                        <div class="expanded-content">
+                            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&auto=format&fit=crop&q=80" alt="Fast Performance" class="expanded-image">
+                            <p>Speed is crucial for user engagement. Our performance-optimized websites load quickly and respond instantly to user interactions. We achieve this through efficient code, optimized assets, and modern web technologies that ensure your visitors never have to wait.</p>
+                        </div>
+                        <a href="#" class="feature-link">Learn more →</a>
+                    </div>
+                    <div class="feature-card">
+                        <div class="close-icon">✖</div>
+                        <!-- <div class="feature-icon">🌈</div> -->
+                        <h3 class="feature-title">Accessibility</h3>
+                        <p class="feature-description">Inclusive design practices for all users.</p>
+                        <div class="expanded-content">
+                            <img src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21?w=600&auto=format&fit=crop&q=80" alt="Accessibility" class="expanded-image">
+                            <p>We believe the web should be accessible to everyone. Our designs follow WCAG guidelines, ensuring that your website is usable by people with various abilities. This includes proper contrast ratios, keyboard navigation, screen reader compatibility, and more.</p>
+                        </div>
+                        <a href="#" class="feature-link">Learn more →</a>
+                    </div>
+                    <div class="feature-card">
+                        <div class="close-icon">✖</div>
+                        <!-- <div class="feature-icon">🔍</div> -->
+                        <h3 class="feature-title">SEO Optimized</h3>
+                        <p class="feature-description">Built to help your site rank higher in search results.</p>
+                        <div class="expanded-content">
+                            <img src="https://images.unsplash.com/photo-1562577309-4932fdd64cd1?w=600&auto=format&fit=crop&q=80" alt="SEO Optimization" class="expanded-image">
+                            <p>Our SEO-first approach ensures your website is built to rank well in search engines. We implement proper semantic HTML, optimize meta tags, ensure fast loading times, and follow all modern SEO best practices to help your content reach its intended audience.</p>
+                        </div>
+                        <a href="#" class="feature-link">Learn more →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact_section">
+        <div class="contact_container">
+            <h1 id="each_heading">Connect with Me</h1>
+            <form id="contact-form" action="https://formspree.io/f/mqakgyqd" method="POST">
+                
+                <input type="text" name="name" placeholder="Your Name" required>
+                
+                <input type="email" name="email" placeholder="Your Email" required>
+    
+                <textarea name="message" placeholder="Your Message" rows="8" cols="8" required></textarea>
+                
+                <button type="submit" class="btn"><b>Send Message</b></button>
+            </form>
+            <div class="social-links">
+                <a href="https://github.com/Sri-code23" title="GitHub" aria-label="GitHub" id="github" target="_blank">
+                    <i class="fab fa-github"></i></a>
+                <a href="https://x.com/paindenji" title="Twitter" aria-label="Twitter" id="X" target="_blank">
+                    <i class="fab fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/in/sridharan-b-5130aa2b4/" 
+                        title="LinkedIn" aria-label="LinkedIn" id="linkedIn" target="_blank"><i class="fab fa-linkedin">
+                </i></a>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <p>&copy;<small>2024 All rights reserved.</small></p>
+        <p><b> Designed and developed by Sridharan. </b></p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="slider.js"></script>
+    <script src="parallax.js"></script>
+    <script src="about_slide.js"></script>
+    <script src="new_projects.js"></script>
+    <!-- <script src="blog-card.js"></script> -->
+    <script src="blog-animat.js"></script>
+    <script src="card_swip.js"></script>
+    <script src="skills.js"></script>
+</body>
+</html>

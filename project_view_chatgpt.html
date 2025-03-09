@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects</title>
+    <style>
+        body {
+            background: #0d0d0d;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        .projects h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .filters button {
+            background: #222;
+            color: #fff;
+            padding: 12px 18px;
+            border: none;
+            cursor: pointer;
+            border-radius: 25px;
+            transition: 0.3s ease-in-out;
+            font-size: 1rem;
+        }
+
+        .filters button:hover, .filters button.active {
+            background: #555;
+            transform: scale(1.1);
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 20px;
+            justify-items: center;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+            width: 90%;
+            max-width: 350px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0px 5px 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .project-card::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: -100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: 0.5s;
+        }
+
+        .project-card:hover::before {
+            left: 0;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: #222;
+            padding: 30px;
+            border-radius: 15px;
+            width: 50%;
+            max-width: 600px;
+            text-align: center;
+            transform: scale(0.8);
+            animation: scaleUp 0.3s ease-in-out forwards;
+        }
+
+        @keyframes scaleUp {
+            from { transform: scale(0.8); }
+            to { transform: scale(1); }
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const filterButtons = document.querySelectorAll(".filters button");
+            const projectCards = document.querySelectorAll(".project-card");
+
+            filterButtons.forEach(button => {
+                button.addEventListener("click", () => {
+                    document.querySelector(".filters .active")?.classList.remove("active");
+                    button.classList.add("active");
+
+                    let category = button.getAttribute("data-filter");
+                    projectCards.forEach(card => {
+                        card.style.opacity = "0";
+                        setTimeout(() => {
+                            if (category === "all" || card.getAttribute("data-category") === category) {
+                                card.style.display = "block";
+                                setTimeout(() => card.style.opacity = "1", 100);
+                            } else {
+                                card.style.display = "none";
+                            }
+                        }, 300);
+                    });
+                });
+            });
+        });
+
+        function openModal(title, description) {
+            document.getElementById("modal-title").textContent = title;
+            document.getElementById("modal-description").textContent = description;
+            document.getElementById("modal").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("modal").style.display = "none";
+        }
+    </script>
+</head>
+<body>
+    <section class="projects">
+        <h2>My Projects</h2>
+        <div class="filters">
+            <button data-filter="all" class="active">All</button>
+            <button data-filter="web">Web</button>
+            <button data-filter="ai">AI</button>
+            <button data-filter="python">Python</button>
+        </div>
+        <div class="project-grid">
+            <div class="project-card" data-category="web" onclick="openModal('Web Project 1', 'Description about this project.')">
+                <h3>Web Project 1</h3>
+            </div>
+            <div class="project-card" data-category="ai" onclick="openModal('AI Project 1', 'AI project description.')">
+                <h3>AI Project 1</h3>
+            </div>
+            <div class="project-card" data-category="python" onclick="openModal('Python Project 1', 'Python project details.')">
+                <h3>Python Project 1</h3>
+            </div>
+        </div>
+    </section>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modal-title"></h2>
+            <p id="modal-description"></p>
+        </div>
+    </div>
+</body>
+</html>

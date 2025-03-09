@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimalistic Animated Background</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General reset for consistent styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Fullscreen black background with white text */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        /* Container for the animated particles */
+        #particle-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0; /* Ensures particles remain in the background */
+        }
+
+        /* Styling for individual particles */
+        .particle {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            transition: transform 0.1s ease-out;
+        }
+
+        /* Main content section, centered in viewport */
+        main {
+            position: relative;
+            z-index: 1; /* Ensures content appears above particles */
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* Wrapper for text content */
+        .content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle animation container -->
+    <div id="particle-container"></div>
+    
+    <!-- Main content section -->
+    <main>
+        <div class="content">
+            <h1>Your Website Title</h1>
+            <p>Add your content here. This area will be above the animated background.</p>
+        </div>
+    </main>
+    
+    <script>
+        const particleContainer = document.getElementById("particle-container");
+        const particles = [];
+        const particleCount = Math.floor((window.innerWidth * window.innerHeight) / 15000);
+
+        /* Function to create individual particles */
+        function createParticle() {
+            const particle = document.createElement("div");
+            particle.classList.add("particle");
+
+            const size = Math.random() * 3 + 1;
+            const initialX = Math.random() * window.innerWidth;
+            const initialY = Math.random() * window.innerHeight;
+
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${initialX}px`;
+            particle.style.top = `${initialY}px`;
+            particle.style.opacity = Math.random() * 0.3 + 0.1;
+
+            particleContainer.appendChild(particle);
+
+            return {
+                element: particle,
+                initialX,
+                initialY,
+                x: initialX,
+                y: initialY,
+                dx: (Math.random() - 0.5) * 0.2,
+                dy: (Math.random() - 0.5) * 0.2,
+            };
+        }
+
+        /* Generate initial particles */
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(createParticle());
+        }
+
+        /* Particle movement interaction with mouse */
+        document.addEventListener("mousemove", (e) => {
+            particles.forEach((particle) => {
+                const dx = e.clientX - particle.x;
+                const dy = e.clientY - particle.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                const maxDistance = 150;
+
+                if (distance < maxDistance) {
+                    const angle = Math.atan2(dy, dx);
+                    const force = (1 - distance / maxDistance) * 5;
+                    const targetX = particle.initialX - Math.cos(angle) * force * 10;
+                    const targetY = particle.initialY - Math.sin(angle) * force * 10;
+
+                    particle.x += (targetX - particle.x) * 0.1;
+                    particle.y += (targetY - particle.y) * 0.1;
+                }
+            });
+        });
+
+        /* Function to animate particle movement */
+        function animate() {
+            particles.forEach((particle) => {
+                particle.x += particle.dx;
+                particle.y += particle.dy;
+
+                if (particle.x < 0 || particle.x > window.innerWidth) particle.dx *= -1;
+                if (particle.y < 0 || particle.y > window.innerHeight) particle.dy *= -1;
+
+                particle.element.style.transform = `translate(${particle.x - particle.initialX}px, ${particle.y - particle.initialY}px)`;
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        /* Adjust particle count on window resize */
+        function handleResize() {
+            const newParticleCount = Math.floor((window.innerWidth * window.innerHeight) / 15000);
+
+            if (newParticleCount > particles.length) {
+                for (let i = particles.length; i < newParticleCount; i++) {
+                    particles.push(createParticle());
+                }
+            } else if (newParticleCount < particles.length) {
+                for (let i = particles.length - 1; i >= newParticleCount; i--) {
+                    particleContainer.removeChild(particles[i].element);
+                    particles.pop();
+                }
+            }
+        }
+
+        window.addEventListener("resize", handleResize);
+    </script>
+</body>
+</html>

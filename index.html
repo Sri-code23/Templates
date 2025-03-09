@@ -1,0 +1,376 @@
+<!-- version-1 -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Website</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #0f0f0f;
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Navigation Styles */
+        .nav-container {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(15, 15, 15, 0.9);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00ff00;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #00ff00;
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1100;
+        }
+
+        /* Background Animation */
+        .background {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            overflow: hidden;
+            display: none;
+        }
+
+        .symbols {
+            position: absolute;
+            width: 100%;
+            height: 200%;
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.05);
+        }
+
+        .symbol {
+            position: absolute;
+            animation: floatSymbol 20s linear infinite;
+        }
+
+        @keyframes floatSymbol {
+            0% { transform: translateY(100vh); }
+            100% { transform: translateY(-100vh); }
+        }
+
+        /* Section Styles */
+        section {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 5%;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .profile {
+            width: 200px;
+            height: 200px;
+            overflow: hidden;
+            border-radius: 50%;
+            border: 3px solid #00ff00;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+
+        .profile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .text-content {
+            max-width: 600px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInText 2s forwards;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #00ff00;
+            opacity: 0;
+            animation: fadeInText 2s 0.5s forwards;
+        }
+
+        @keyframes fadeInText {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 100%;
+                background: rgba(15, 15, 15, 0.95);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: right 0.3s ease;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .profile {
+                width: 150px;
+                height: 150px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-container">
+        <nav>
+            <div class="logo">Portfolio</div>
+            <div class="mobile-menu">☰</div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#portfolio">Portfolio</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
+    </div>
+
+    <div class="background">
+        <div class="symbols"></div>
+    </div>
+
+    <section id="home">
+        <div class="container">
+            <div class="profile">
+                <img src="https://via.placeholder.com/200x200.png?text=Profile" alt="Profile Image">
+            </div>
+            <div class="text-content">
+                <h1 id="changing-text">I'm a Developer</h1>
+                <p class="subtitle">Turning ideas into reality</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h1>About Me</h1>
+            <img src="https://via.placeholder.com/600x400.png?text=About+Me" alt="About Me" style="max-width: 100%; height: auto;">
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="container">
+            <h1>My Services</h1>
+            <img src="https://via.placeholder.com/600x400.png?text=Services" alt="Services" style="max-width: 100%; height: auto;">
+        </div>
+    </section>
+
+    <section id="portfolio">
+        <div class="container">
+            <h1>Portfolio</h1>
+            <img src="https://via.placeholder.com/600x400.png?text=Portfolio" alt="Portfolio" style="max-width: 100%; height: auto;">
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h1>Contact</h1>
+            <img src="https://via.placeholder.com/600x400.png?text=Contact" alt="Contact" style="max-width: 100%; height: auto;">
+        </div>
+    </section>
+
+    <script>
+        const texts = ["I'm a Developer", "I'm a Designer", "I'm a Creator", "I build things that matter"];
+        let textIndex = 0;
+        
+        function changeText() {
+            const changingTextElement = document.getElementById("changing-text");
+            changingTextElement.style.animation = 'none';
+            changingTextElement.offsetHeight;
+            changingTextElement.style.animation = 'fadeInText 2s forwards';
+            
+            textIndex = (textIndex + 1) % texts.length;
+            changingTextElement.innerText = texts[textIndex];
+        }
+        
+        setInterval(changeText, 4000);
+
+        function generateSymbols() {
+            const symbols = ['</>', '{}', '() => {}', '#CSS', 'console.log()', '<HTML>', 'def function():', '@media', 'const var', 'return ()'];
+            const symbolsContainer = document.querySelector(".symbols");
+            symbolsContainer.innerHTML = "";
+            
+            for (let i = 0; i < 50; i++) {
+                const span = document.createElement("span");
+                span.className = 'symbol';
+                span.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+                span.style.left = Math.random() * 100 + "%";
+                span.style.animationDuration = (Math.random() * 10 + 10) + "s";
+                span.style.animationDelay = (Math.random() * 10) + "s";
+                symbolsContainer.appendChild(span);
+            }
+        }
+
+        // Mobile menu toggle
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close the menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !mobileMenu.contains(e.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // Close the menu when a link is clicked
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Initialize symbols and keep regenerating
+        generateSymbols();
+        setInterval(generateSymbols, 30000);
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Show/hide nav on scroll
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', () => {
+            const navContainer = document.querySelector('.nav-container');
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop) {
+                navContainer.style.transform = 'translateY(-100%)';
+            } else {
+                navContainer.style.transform = 'translateY(0)';
+            }
+            lastScrollTop = scrollTop;
+        });
+
+        // Show background animation only on home page
+        const background = document.querySelector('.background');
+        const homeSection = document.getElementById('home');
+
+        function checkBackgroundVisibility() {
+            const rect = homeSection.getBoundingClientRect();
+            if (rect.top <= 0 && rect.bottom > 0) {
+                background.style.display = 'block';
+            } else {
+                background.style.display = 'none';
+            }
+        }
+
+        window.addEventListener('scroll', checkBackgroundVisibility);
+        checkBackgroundVisibility(); // Initial check
+    </script>
+</body>
+</html>
+
+
+--------------------------------------------
+
+
+

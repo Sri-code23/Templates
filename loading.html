@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preloader with Percentage</title>
+    <style>
+        /* Reset some basic elements */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+            background-color: #f8f9fa;
+        }
+        
+        /* Preloader styles */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #2c3e50;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease-out, visibility 0.8s;
+        }
+        
+        #percentage {
+            font-size: 3rem;
+            color: #ecf0f1;
+            margin-bottom: 20px;
+        }
+        
+        .loader-bar {
+            width: 200px;
+            height: 6px;
+            background-color: #34495e;
+            border-radius: 3px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .loader-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0%;
+            background-color: #3498db;
+            transition: width 0.5s ease;
+        }
+        
+        /* Main content styles */
+        #main-content {
+            display: none; /* Start with display none instead of opacity */
+            padding: 50px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .subheading {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+        }
+        
+        .content-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card h2 {
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+        
+        .card p {
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #7f8c8d;
+            border-top: 1px solid #ecf0f1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <p id="percentage">0%</p>
+        <div class="loader-bar"></div>
+    </div>
+    
+    <!-- Main Content (hidden initially) -->
+    <div id="main-content">
+        <header>
+            <h1>Welcome to Our Website</h1>
+            <p class="subheading">Your content is now fully loaded and ready to explore</p>
+        </header>
+        
+        <div class="content-section">
+            <div class="card">
+                <h2>About Us</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor.</p>
+            </div>
+            <div class="card">
+                <h2>Our Services</h2>
+                <p>Phasellus urna nulla, varius ac feugiat sed, cursus in enim. Nulla feugiat ultrices lorem, id porttitor velit sodales vitae. Vestibulum ante ipsum primis in faucibus.</p>
+            </div>
+            <div class="card">
+                <h2>Contact</h2>
+                <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo.</p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>&copy; 2025 Your Company Name. All rights reserved.</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Wait for DOM to be ready
+        document.addEventListener('DOMContentLoaded', function() {
+            const preloader = document.getElementById('preloader');
+            const percentage = document.getElementById('percentage');
+            const loadingBar = document.querySelector('.loader-bar');
+            const mainContent = document.getElementById('main-content');
+            
+            // Create a direct reference to the progress bar
+            let progressBar = document.createElement('div');
+            progressBar.style.position = 'absolute';
+            progressBar.style.top = '0';
+            progressBar.style.left = '0';
+            progressBar.style.height = '100%';
+            progressBar.style.width = '0%';
+            progressBar.style.backgroundColor = '#3498db';
+            progressBar.style.transition = 'width 0.5s ease';
+            loadingBar.appendChild(progressBar);
+            
+            // Simulate loading progress
+            let loadingProgress = 0;
+            const loadingInterval = setInterval(function() {
+                // Increment loading progress
+                if (loadingProgress < 95) {
+                    loadingProgress += Math.floor(Math.random() * 5) + 1;
+                    if (loadingProgress > 95) loadingProgress = 95;
+                    
+                    // Update percentage text and loader bar
+                    percentage.textContent = loadingProgress + '%';
+                    progressBar.style.width = loadingProgress + '%';
+                }
+            }, 200);
+            
+            // When window has loaded
+            window.addEventListener('load', function() {
+                // Complete the loading progress after a short delay
+                setTimeout(function() {
+                    // Set to 100%
+                    loadingProgress = 100;
+                    percentage.textContent = '100%';
+                    progressBar.style.width = '100%';
+                    
+                    // Wait a moment to show 100% before hiding preloader
+                    setTimeout(function() {
+                        // Stop the interval
+                        clearInterval(loadingInterval);
+                        
+                        // Hide preloader
+                        preloader.style.opacity = '0';
+                        preloader.style.visibility = 'hidden';
+                        
+                        // Show main content - using display block for reliability
+                        mainContent.style.display = 'block';
+                        
+                        // Clean up by removing preloader from DOM after transition
+                        setTimeout(function() {
+                            preloader.parentNode.removeChild(preloader);
+                        }, 1000);
+                    }, 600);
+                }, 500);
+            });
+        });
+    </script>
+</body>
+</html>

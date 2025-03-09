@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Showcase</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: rgb(17, 24, 39);
+            overflow: hidden;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .background-container {
+            position: absolute;
+            inset: 0;
+        }
+
+        .expanded-card {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 700ms ease-in-out;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .expanded-card.active {
+            opacity: 1;
+            z-index: 10;
+            pointer-events: auto;
+        }
+
+        .expanded-content {
+            width: 100%;
+            height: 100%;
+            background-color: rgb(17, 24, 39);
+            position: relative;
+        }
+
+        .expanded-image {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.3;
+        }
+
+        .expanded-text {
+            position: relative;
+            z-index: 20;
+            height: 40%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .expanded-text-content {
+            max-width: 64rem;
+        }
+
+        .expanded-title {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            color: white;
+        }
+
+        .expanded-description {
+            font-size: 1.5rem;
+            line-height: 1.75;
+            color: rgb(229, 231, 235);
+        }
+
+        .cards-container {
+            position: fixed;
+            top: 80%;
+            right: 10%;
+            transform: translateY(-50%);
+            z-index: 20;
+            padding-right: 3rem;
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .cards-wrapper {
+            position: relative;
+            width: 32rem;
+            height: 16rem;
+        }
+
+        .project-card {
+            position: absolute;
+            left: 0;
+            transition: all 500ms ease-in-out;
+            cursor: pointer;
+            transform-origin: center center;
+        }
+
+        .project-card:hover {
+            transform: scale(1.05) translateX(var(--translateX)) !important;
+        }
+
+        .card-content {
+            width: 300px;
+            background: white;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .card-image-container {
+            height: 12rem;
+            position: relative;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-image-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6));
+        }
+
+        .card-text {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-brief {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        @media (max-width: 768px) {
+            .cards-container {
+                padding-right: 1rem;
+            }
+
+            .card-content {
+                width: 260px;
+            }
+
+            .expanded-title {
+                font-size: 2rem;
+            }
+
+            .expanded-description {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container" id="backgroundContainer"></div>
+    <div class="cards-container">
+        <div class="cards-wrapper" id="cardsWrapper"></div>
+    </div>
+
+    <script>
+        const projects = [
+            {
+                id: 1,
+                title: "Digital Marketplace",
+                brief: "E-commerce platform with AI recommendations",
+                description: "A comprehensive digital marketplace solution that leverages artificial intelligence to provide personalized product recommendations. Built with React and Node.js, featuring real-time inventory management and advanced search capabilities.",
+                image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop&q=80"
+            },
+            {
+                id: 2,
+                title: "Smart Analytics Dashboard",
+                brief: "Real-time data visualization platform",
+                description: "An intuitive analytics dashboard that transforms complex data into actionable insights. Features interactive charts, customizable widgets, and real-time data updates. Built using D3.js and WebSocket technology.",
+                image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop&q=80"
+            },
+            {
+                id: 3,
+                title: "Cloud Storage Solution",
+                brief: "Secure file management system",
+                description: "Enterprise-grade cloud storage solution with end-to-end encryption. Offers seamless file sharing, version control, and collaborative features. Implemented using AWS S3 and React.",
+                image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&auto=format&fit=crop&q=80"
+            },
+            {
+                id: 4,
+                title: "Social Media Analytics",
+                brief: "Social engagement tracking platform",
+                description: "Comprehensive social media analytics platform that tracks engagement metrics across multiple platforms. Features sentiment analysis, trend detection, and automated reporting.",
+                image: "https://images.unsplash.com/photo-1432888622747-4eb9a8efeb07?w=800&auto=format&fit=crop&q=80"
+            }
+        ];
+
+        let activeIndex = 0;
+        let expandedId = null;
+
+        function createProjectCard(project, index) {
+            const position = (index - activeIndex + projects.length) % projects.length;
+            const opacity = position === 0 ? 1 : position > 0 ? 0.9 - position * 0.2 : 0;
+            const scale = position === 0 ? 1 : 0.95 - position * 0.1;
+            const translateX = -position * 320;
+
+            const card = document.createElement('div');
+            card.className = 'project-card';
+            card.style.transform = `translateX(${translateX}px) scale(${scale})`;
+            card.style.setProperty('--translateX', `${translateX}px`);
+            card.style.opacity = opacity;
+            card.style.zIndex = 20 - position;
+
+            card.innerHTML = `
+                <div class="card-content">
+                    <div class="card-image-container">
+                        <img src="${project.image}" alt="${project.title}" class="card-image">
+                        <div class="card-image-overlay"></div>
+                        <div class="card-text">
+                            <h3 class="card-title">${project.title}</h3>
+                            <p class="card-brief">${project.brief}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            card.addEventListener('click', () => handleCardClick(project.id));
+            return card;
+        }
+
+        function createExpandedCard(project) {
+            const expandedCard = document.createElement('div');
+            expandedCard.className = 'expanded-card';
+            expandedCard.dataset.id = project.id;
+
+            expandedCard.innerHTML = `
+                <div class="expanded-content">
+                    <img src="${project.image}" alt="${project.title}" class="expanded-image">
+                    <div class="expanded-text">
+                        <div class="expanded-text-content">
+                            <h2 class="expanded-title">${project.title}</h2>
+                            <p class="expanded-description">${project.description}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            return expandedCard;
+        }
+
+        function handleCardClick(id) {
+            if (expandedId === id) {
+                expandedId = null;
+                document.querySelectorAll('.expanded-card').forEach(card => {
+                    card.classList.remove('active');
+                });
+                return;
+            }
+
+            expandedId = id;
+            document.querySelectorAll('.expanded-card').forEach(card => {
+                card.classList.toggle('active', card.dataset.id === id.toString());
+            });
+            
+            activeIndex = (activeIndex + 1) % projects.length;
+            updateCards();
+        }
+
+        function updateCards() {
+            const cardsWrapper = document.getElementById('cardsWrapper');
+            cardsWrapper.innerHTML = '';
+            projects.forEach((project, index) => {
+                cardsWrapper.appendChild(createProjectCard(project, index));
+            });
+        }
+
+        function initializeProjects() {
+            const backgroundContainer = document.getElementById('backgroundContainer');
+            projects.forEach(project => {
+                backgroundContainer.appendChild(createExpandedCard(project));
+            });
+            updateCards();
+        }
+
+        initializeProjects();
+    </script>
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refined Skills Section</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+    --bg-color: #000000;
+    --text-color: #ffffff;
+    --icon-color: #cccccc;
+    --hover-color: #ffffff;
+    --tooltip-bg: rgba(50, 50, 50, 0.9);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.skills-section {
+    text-align: center;
+    padding: 2rem;
+    max-width: 1200px;
+    width: 100%;
+}
+
+h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-color);
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+    justify-content: center;
+}
+
+.skill-item {
+    position: relative;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.skill-item::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.skill-item:hover::before {
+    opacity: 1;
+}
+
+.skill-item i {
+    font-size: 3rem;
+    color: var(--icon-color);
+    transition: all 0.3s ease;
+}
+
+.skill-item:hover i {
+    color: var(--hover-color);
+    transform: scale(1.1);
+}
+
+.tooltip {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--tooltip-bg);
+    color: var(--text-color);
+    padding: 0;
+    border-radius: 15px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(100%);
+    transition: all 0.3s ease;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.skill-item:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    width: 100%;
+    height: 100%;
+}
+
+.tooltip h3 {
+    margin: 0;
+    
+    font-size: 1.2rem;
+    color: var(--hover-color);
+}
+
+.tooltip p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.skill-item {
+    animation: float 5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.skill-item:hover {
+    animation: pulse 1s ease-in-out infinite;
+}
+
+@media (max-width: 768px) {
+    .skills-grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 1rem;
+    }
+
+    .skill-item {
+        padding: 1rem;
+    }
+
+    .skill-item i {
+        font-size: 2.5rem;
+    }
+}
+    </style>
+</head>
+<body>
+    <section class="skills-section">
+        <h2>My Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-item" data-skill="HTML5">
+                <i class="fab fa-html5"></i>
+                <div class="tooltip">
+                    <h3>HTML5</h3>
+                    <!-- <p>Semantic markup and structure</p> -->
+                </div>
+            </div>
+            <div class="skill-item" data-skill="CSS3">
+                <i class="fab fa-css3-alt"></i>
+                <div class="tooltip">
+                    <h3>CSS3</h3>
+                    <!-- <p>Styling and responsive design</p> -->
+                </div>
+            </div>
+            <div class="skill-item" data-skill="JavaScript">
+                <i class="fab fa-js"></i>
+                <div class="tooltip">
+                    <h3>JavaScript</h3>
+                    <!-- <p>Dynamic client-side scripting</p> -->
+                </div>
+            </div>
+            <div class="skill-item" data-skill="React">
+                <i class="fab fa-react"></i>
+                <div class="tooltip">
+                    <h3>React</h3>
+                    <!-- <p>UI component library</p> -->
+                </div>
+            </div>
+            <div class="skill-item" data-skill="Node.js">
+                <i class="fab fa-node-js"></i>
+                <div class="tooltip">
+                    <h3>Node.js</h3>
+                    <!-- <p>Server-side JavaScript runtime</p> -->
+                </div>
+            </div>
+            <div class="skill-item" data-skill="Python">
+                <i class="fab fa-python"></i>
+                <div class="tooltip">
+                    <h3>Python</h3>
+                    <!-- <p>Versatile programming language</p> -->
+                </div>
+            </div>
+            <div class="skill-item" data-skill="Django">
+                <i class="fab fa-python"></i>
+                <div class="tooltip">
+                    <h3>Django</h3>
+                    <!-- <p>High-level Python web framework</p> -->
+                </div>
+            </div>
+            <div class="skill-item" data-skill="Flask">
+                <i class="fab fa-python"></i>
+                <div class="tooltip">
+                    <h3>Flask</h3>
+                    <!-- <p>Lightweight Python web framework</p> -->
+                </div>
+            </div>
+            <div class="skill-item" data-skill="MySQL">
+                <i class="fas fa-database"></i>
+                <div class="tooltip">
+                    <h3>MySQL</h3>
+                    <!-- <p>Relational database management</p> -->
+                </div>
+            </div>
+            <div class="skill-item" data-skill="Git">
+                <i class="fab fa-git-alt"></i>
+                <div class="tooltip">
+                    <h3>Git</h3>
+                    <!-- <p>Version control system</p> -->
+                </div>
+            </div>
+            <div class="skill-item" data-skill="Docker">
+                <i class="fab fa-docker"></i>
+                <div class="tooltip">
+                    <h3>Docker</h3>
+                    <!-- <p>Containerization platform</p> -->
+                </div>
+            </div>
+            <div class="skill-item" data-skill="Networking">
+                <i class="fas fa-network-wired"></i>
+                <div class="tooltip">
+                    <h3>Computer Networking</h3>
+                    <!-- <p>Network protocols and architecture</p> -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const skillItems = document.querySelectorAll('.skill-item');
+
+    skillItems.forEach((item, index) => {
+        // Randomize the floating animation
+        item.style.animationDelay = `${Math.random() * 2}s`;
+
+        // Add a staggered entrance animation
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+            item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            item.style.opacity = '1';
+            item.style.transform = 'translateY(0)';
+        }, index * 100);
+
+        // Add mouseover event for custom tooltip positioning
+        item.addEventListener('mouseover', (e) => {
+            const tooltip = item.querySelector('.tooltip');
+            tooltip.style.transform = 'translateY(0)';
+        });
+
+        // Add mouseout event to hide tooltip
+        item.addEventListener('mouseout', (e) => {
+            const tooltip = item.querySelector('.tooltip');
+            tooltip.style.transform = 'translateY(100%)';
+        });
+    });
+});
+    </script>
+</body>
+</html>
+
+
+
+
+
+

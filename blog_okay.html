@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Blog - Dark Theme</title>
+    <style>
+      :root {
+        font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+        line-height: 1.5;
+        font-weight: 400;
+        color-scheme: dark;
+        background-color: #000000;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+    
+      #app {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100vh;
+      }
+    
+      .blog-container {
+        width: 90%;
+        display: flex;
+        flex-direction: row;
+        position: relative;
+        overflow: hidden;
+        justify-content: center;
+        align-items: center;
+        padding: 20px 20px;
+        border-radius: 12px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8),
+                    0 0 0 1px rgba(255, 255, 255, 0.1);
+        background-color: #111111;
+        margin: 0.25rem;
+        backdrop-filter: blur(10px);
+        gap: 1rem;
+        border: 1px solid grey;
+      }
+    
+      .content-section {
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 10px 10px;
+        width: 90%;
+        overflow: hidden;
+        background: rgba(17, 16, 16, 0.3);
+        position: relative;
+      }
+    
+      .blog-title {
+        font-size: 1.75rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        background: linear-gradient(to right, #ffffff, #999999);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        letter-spacing: -0.5px;
+        line-height: 1.2;
+      }
+    
+      .blog-content {
+        font-size: 0.95rem;
+        color: #e0e0e0;
+        line-height: 1.6;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        transition-delay: 0.1s;
+        margin-bottom: 1rem;
+      }
+    
+      .cards-section {
+        width: 50%;
+        height: 200px;
+        margin: 1rem 1rem;
+        padding: 20px 20px;
+        /* border: 1px solid rgb(105, 18, 18); */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        perspective: 1000px;
+        margin-top: 1rem;
+      }
+    
+      .blog-card {
+        position: absolute;
+        width: 85%;
+        height: 23rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        border-radius: 0.75rem;
+        color: white;
+        font-size: 1.125rem;
+        font-weight: bold;
+        text-align: center;
+        padding: 1rem;
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        overflow: hidden;
+      }
+    
+      .blog-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3));
+        z-index: 1;
+      }
+    
+      .blog-card-title {
+        position: relative;
+        z-index: 2;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        padding: 0.5rem;
+      }
+    
+      .blog-card.active {
+        transform: scale(1) translateZ(25px);
+        opacity: 1;
+        filter: blur(0);
+        z-index: 10;
+      }
+    
+      .blog-card:not(.active) {
+        transform: scale(0.9) translateZ(-25px);
+        opacity: 0.3;
+        filter: blur(2px);
+        z-index: 0;
+      }
+    
+      .blog-card:hover {
+        transform: scale(1.02) translateZ(30px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+      }
+    
+      .navigation {
+        position: absolute;
+        bottom: 0.5rem;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 0.75rem;
+        z-index: 20;
+      }
+    
+      .nav-button {
+        background-color: rgba(255, 255, 255, 0.05);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        width: 2.5rem;
+        height: 2.5rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        font-size: 1rem;
+      }
+    
+      .nav-button:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        transform: scale(1.1);
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+      }
+    
+      .nav-button:active {
+        transform: scale(0.95);
+      }
+    
+      .show {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+      }
+    
+      @keyframes pulse {
+        0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.1); }
+        70% { box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+      }
+    
+      .blog-card.active {
+        animation: pulse 2s infinite;
+      }
+    
+      @media (min-width: 480px) {
+        .blog-container {
+          flex-direction: column;
+          gap: 1rem;
+          padding: 0.5rem;
+          margin: 1rem;
+          border-radius: 16px;
+        }
+    
+        .content-section {
+          width: 50%;
+          height: 80%;
+          padding: 1rem;
+          border-radius: 12px;
+        }
+    
+        .blog-title {
+          font-size: 2.75rem;
+          margin-bottom: 1.5rem;
+        }
+    
+        .blog-content {
+          font-size: 1.125rem;
+          line-height: 1.8;
+          margin-bottom: 0;
+        }
+    
+        .cards-section {
+          width: 50%;
+          height: 400px;
+          margin-top: 0;
+          margin: 20px 20px;
+        }
+    
+        .blog-card {
+          width: 65%;
+          height: 4rem;
+          font-size: 1.5rem;
+          padding: 1.5rem;
+          border-radius: 1rem;
+        }
+    
+        .blog-card.active {
+          transform: scale(1) translateZ(50px);
+        }
+    
+        .blog-card:not(.active) {
+          transform: scale(0.85) translateZ(-50px);
+        }
+    
+        .blog-card:hover {
+          transform: scale(1.02) translateZ(60px);
+        }
+    
+        .navigation {
+          bottom: 2rem;
+          padding: 0 2rem;
+        }
+    
+        .nav-button {
+          width: 3.5rem;
+          height: 3.5rem;
+          font-size: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <script>
+      const blogData = [
+        {
+          title: "The Future of AI",
+          content: "Artificial Intelligence is reshaping our world in ways we never imagined. From self-driving cars to advanced medical diagnostics, AI is pushing the boundaries of what's possible.",
+          image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800&h=600"
+        },
+        {
+          title: "Sustainable Living",
+          content: "As climate change becomes an ever-pressing issue, sustainable living practices are more important than ever. Learn how small changes in your daily life can make a big impact.",
+          image: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&q=80&w=800&h=600"
+        },
+        {
+          title: "The Art of Mindfulness",
+          content: "In our fast-paced world, mindfulness offers a path to peace and clarity. Discover techniques to stay present and reduce stress in your everyday life.",
+          image: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&q=80&w=800&h=600"
+        },
+      ];
+
+      let currentIndex = 0;
+      let autoPlayInterval;
+
+      function updateContent() {
+        const title = document.querySelector('.blog-title');
+        const content = document.querySelector('.blog-content');
+        const cards = document.querySelectorAll('.blog-card');
+
+        title.classList.remove('show');
+        content.classList.remove('show');
+        
+        setTimeout(() => {
+          title.textContent = blogData[currentIndex].title;
+          content.textContent = blogData[currentIndex].content;
+          title.classList.add('show');
+          content.classList.add('show');
+        }, 300);
+
+        cards.forEach((card, index) => {
+          if (index === currentIndex) {
+            card.classList.add('active');
+          } else {
+            card.classList.remove('active');
+          }
+          
+          const rotation = (index - currentIndex) * 45;
+          const zTranslation = index === currentIndex ? 25 : -25;
+          const scale = index === currentIndex ? 1 : 0.9;
+          
+          if (window.innerWidth >= 768) {
+            card.style.transform = `scale(${index === currentIndex ? 1 : 0.85}) rotateY(${rotation}deg) translateZ(${index === currentIndex ? 50 : -50}px)`;
+          } else {
+            card.style.transform = `scale(${scale}) rotateY(${rotation}deg) translateZ(${zTranslation}px)`;
+          }
+        });
+      }
+
+      function nextBlog() {
+        currentIndex = (currentIndex + 1) % blogData.length;
+        updateContent();
+      }
+
+      function prevBlog() {
+        currentIndex = (currentIndex - 1 + blogData.length) % blogData.length;
+        updateContent();
+      }
+
+      function startAutoPlay() {
+        autoPlayInterval = setInterval(nextBlog, 5000);
+      }
+
+      function stopAutoPlay() {
+        clearInterval(autoPlayInterval);
+      }
+
+      function handleResize() {
+        updateContent();
+      }
+
+      window.addEventListener('resize', handleResize);
+
+      document.querySelector('#app').innerHTML = `
+        <div class="blog-container">
+          <div class="cards-section">
+            ${blogData.map((blog, index) => `
+              <div class="blog-card ${index === 0 ? 'active' : ''}" 
+                   style="background-image: url('${blog.image}')">
+                <div class="blog-card-title">${blog.title}</div>
+              </div>
+            `).join('')}
+          </div>
+          <div class="content-section">
+            <h2 class="blog-title"></h2>
+            <p class="blog-content"></p>
+          </div>
+
+          <div class="navigation">
+            <button class="nav-button prev-button">←</button>
+            <button class="nav-button next-button">→</button>
+          </div>
+        </div>
+      `;
+
+      document.querySelector('.prev-button').addEventListener('click', () => {
+        stopAutoPlay();
+        prevBlog();
+        startAutoPlay();
+      });
+
+      document.querySelector('.next-button').addEventListener('click', () => {
+        stopAutoPlay();
+        nextBlog();
+        startAutoPlay();
+      });
+
+      document.querySelectorAll('.blog-card').forEach((card, index) => {
+        card.addEventListener('click', () => {
+          stopAutoPlay();
+          currentIndex = index;
+          updateContent();
+          startAutoPlay();
+        });
+
+        card.addEventListener('mouseenter', () => {
+          stopAutoPlay();
+        });
+
+        card.addEventListener('mouseleave', () => {
+          startAutoPlay();
+        });
+      });
+
+      updateContent();
+      startAutoPlay();
+    </script>
+  </body>
+</html>

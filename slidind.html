@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Continuous Scrolling Elements</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #0d1117;
+            overflow: hidden;
+        }
+
+        .silde_container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            background-color: #161b22;
+            padding: 20px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .scroll-wrapper {
+            display: flex;
+            gap: 20px;
+            width: max-content;
+            animation: scrollLoop 15s linear infinite;
+        }
+
+        .element {
+            display: inline-block;
+            padding: 20px 30px;
+            color: #fff;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            background: linear-gradient(135deg, #ff6b6b, #845ec2);
+            border-radius: 12px;
+            min-width: 120px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .element:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.5);
+        }
+
+        @keyframes scrollLoop {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        .container:hover .scroll-wrapper {
+            animation-play-state: paused;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="silde_container">
+        <div class="scroll-wrapper">
+            <!-- Elements will be added dynamically via JS -->
+        </div>
+    </div>
+
+    <script>
+        const elements = [
+            "Home", "About", "Services", "Portfolio", "Contact",
+            "Blog", "Testimonials", "Careers", "FAQ", "Support"
+        ];
+
+        const wrapper = document.querySelector(".scroll-wrapper");
+
+        function createScrollingElements() {
+            for (let i = 0; i < 2; i++) { // Duplicate for smooth looping
+                elements.forEach((text, index) => {
+                    let div = document.createElement("div");
+                    div.classList.add("element");
+                    div.textContent = text;
+                    div.style.width = `${120 + (index * 15)}px`; // Varying width
+                    wrapper.appendChild(div);
+                });
+            }
+        }
+
+        createScrollingElements();
+    </script>
+
+</body>
+</html>

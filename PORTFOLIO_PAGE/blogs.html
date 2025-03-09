@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sri | Blogs </title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div id="arrow_mark" ><a href="index.html#blog">
+            <button id="arrow_button" title="back" >&#x2039;</button></a>
+        </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html#home"><b>Home</b></a></li>
+                    <li><a href="index.html#about"><b>About</b></a></li>
+                    <li><a href="index.html#skills"><b>Skills</b></a></li>
+                    <li><a href="index.html#projects"><b>Projects</b></a></li>
+                    <li><a href="index.html#blog"><b>Blogs</b></a></li>
+                    <li><a href="index.html#blog"><b>Certifications</b></a></li>
+                    <li><a href="index.html#contact"><b>Contact</b></a></li>
+                </ul>
+            </nav>
+            <div class="theme-switch">
+                <input type="checkbox" id="theme-toggle">
+                <label for="theme-toggle" class="switch"></label>
+            </div>
+            <div class="menu-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="blog" style="padding: 0%;">
+            <div class="container" >
+                <h1 style="text-align: center;font-size:xx-large;"><b>All Blog Posts</b></h1>
+                <div class="blog-grid">
+                    <div class="blog-item" data-blog="blog1">
+                        <img src="assets/python_blog.jpg" alt="Blog 1">
+                        <h3>The Journey of Building My First Python Library – QuotesEngine</h3>
+                        <div class="popup-links">
+                        <a href="" style="color: #00aa71;text-decoration: none;" 
+                        title="Click to read more "  target="_blank"> more </a>
+                    </div>
+                    </div>
+                    <div class="blog-item" data-blog="blog2">
+                        <img src="assets/blog_board.jpg" alt="Blog 2">
+                        <h3>Innovating Safety in Industries – The Counter with Overload Alert System</h3>
+                        <div class="popup-links">
+                            <a href="" style="color: #00aa71;text-decoration: none;" 
+                            title="Click to read more "  target="_blank"> more </a>
+                        </div>
+                    </div>
+                    <div class="blog-item" data-blog="blog3">
+                        <img src="assets/iot_board.jpg" alt="Blog 3">
+                        <h3>Embracing IoT – The Smart Air Quality Management System</h3>
+                        <div class="popup-links">
+                            <a href="" style="color: #00aa71;text-decoration: none;" 
+                            title="Click to read more "  target="_blank"> more </a>
+                        </div>
+                    </div>
+                    <div class="blog-item" data-blog="blog4">
+                        <img src="https://via.placeholder.com/300x200" title="Click to read more "  
+                        alt="Blog 4">
+                        <h3>upcoming</h3>
+                    </div>
+                    <div class="blog-item" data-blog="blog5">
+                        <img src="https://via.placeholder.com/300x200" title="Click to read more "  
+                        alt="Blog 5">
+                        <h3>upcoming</h3>
+                    </div>
+                    <div class="blog-item" data-blog="blog6">
+                        <img src="https://via.placeholder.com/300x200" title="Click to read more "  
+                        alt="Blog 6">
+                        <h3>upcoming</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy;<small>2024 All rights reserved.</small></p>
+        <p><b> Designed and developed by Sridharan. </b></p>
+    </footer>
+
+    <div id="popup-overlay" class="hidden"></div>
+    <div id="popup-content" class="hidden">
+        <button id="close-popup" aria-label="Close popup">&times;</button>
+        <div id="popup-body"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

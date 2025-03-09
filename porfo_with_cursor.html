@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sridharan - Developer & Designer Portfolio">
+  <title>Sridharan | Developer & Designer</title>
+  <!-- <link rel="stylesheet" href="styles.css"> -->
+   <style>
+        /* Base Styles */
+:root {
+  --background: #000000;
+  --foreground: #ffffff;
+  --primary: #ffffff;
+  --primary-foreground: #000000;
+  --secondary: #222222;
+  --secondary-foreground: #ffffff;
+  --muted: #333333;
+  --muted-foreground: #999999;
+  --border: rgba(255, 255, 255, 0.1);
+  --radius: 0.5rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border-color: var(--border);
+  cursor: none;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* For Firefox */
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--background);
+  color: var(--foreground);
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+/* Container */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Section Container */
+.section-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 6rem 1rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Text Utilities */
+.text-center {
+  text-align: center;
+}
+
+.text-primary {
+  color: var(--primary);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Glass Panel */
+.glass-panel {
+  backdrop-filter: blur(10px);
+  background-color: rgba(34, 34, 34, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  padding: 2rem;
+}
+
+/* Particle Animation */
+#particle-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  background-color: var(--foreground);
+  border-radius: 50%;
+  opacity: 0.1;
+  transition: transform 0.1s ease-out;
+}
+
+/* Custom Cursor */
+canvas#cursorCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Navbar */
+#navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  padding: 1.5rem 0;
+  transition: all 0.3s ease;
+}
+
+#navbar.scrolled {
+  padding: 0.75rem 0;
+  backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+#navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+}
+
+.nav-item {
+  position: relative;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  transition: color 0.3s;
+  text-transform: capitalize;
+}
+
+.nav-item:hover, .nav-item.active {
+  color: var(--foreground);
+}
+
+.nav-item::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 1px;
+  background-color: var(--foreground);
+  transition: width 0.3s;
+}
+
+.nav-item:hover::after, .nav-item.active::after {
+  width: 100%;
+}
+
+.mobile-menu-button {
+  display: none;
+  background: none;
+  border: none;
+}
+
+@media (max-width: 768px) {
+  nav ul {
+    display: none;
+  }
+  
+  .mobile-menu-button {
+    display: block;
+  }
+}
+
+/* Hero Section */
+.badge {
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.badge span {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  color: var(--muted-foreground);
+  margin-bottom: 2.5rem;
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.btn-primary {
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 500;
+  transition: opacity 0.3s;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.btn-secondary {
+  padding: 0.75rem 1.5rem;
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius);
+  font-weight: 500;
+  transition: background-color 0.3s;
+  color: var(--foreground);
+}
+
+.btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Grid Layout */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+@media (min-width: 768px) {
+  .grid-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* About Section */
+.section-tag {
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.section-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.section-header {
+  margin-bottom: 4rem;
+}
+
+.about-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.about-text {
+  color: var(--muted-foreground);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+/* Skills Section */
+.skills-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .skills-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.skill-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.skill-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.skill-list li {
+  display: flex;
+  align-items: center;
+}
+
+.skill-list li::before {
+  content: "✓";
+  display: inline-block;
+  margin-right: 0.5rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Projects Section */
+.filter-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.filter-btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background: none;
+  border: none;
+  border-radius: var(--radius);
+  color: var(--muted-foreground);
+  transition: all 0.3s;
+}
+
+.filter-btn:hover {
+  background-color: var(--secondary);
+}
+
+.filter-btn.active {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.project-card {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s;
+}
+
+.project-card:hover .project-image img {
+  transform: scale(1.05);
+}
+
+.project-image {
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+}
+
+.project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+  filter: grayscale(1);
+}
+
+.project-content {
+  padding: 1.5rem;
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.project-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.project-category {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  background-color: var(--secondary);
+  border-radius: 9999px;
+}
+
+.project-description {
+  color: var(--muted-foreground);
+  margin-bottom: 1rem;
+}
+
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.project-link svg {
+  margin-left: 0.25rem;
+  transition: transform 0.3s;
+}
+
+.project-link:hover svg {
+  transform: translateX(4px);
+}
+
+/* Contact Section */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+@media (min-width: 768px) {
+  .contact-grid {
+    grid-template-columns: 2fr 3fr;
+  }
+}
+
+.contact-subtitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.contact-text {
+  color: var(--muted-foreground);
+  margin-bottom: 2rem;
+}
+
+.contact-methods {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.contact-method {
+  display: flex;
+  align-items: center;
+}
+
+.contact-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.75rem;
+  color: var(--primary);
+}
+
+.contact-method-label {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+.contact-method-value {
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--foreground);
+}
+
+.social-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-link {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  transition: background-color 0.3s;
+}
+
+.social-link:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.contact-form-container {
+  width: 100%;
+}
+
+.form-success-message {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.success-icon {
+  color: #10b981;
+  margin: 0 auto 1rem;
+}
+
+.success-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.success-text {
+  color: var(--muted-foreground);
+}
+
+.contact-form {
+  width: 100%;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .form-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.form-input, .form-textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  background-color: var(--secondary);
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  transition: all 0.3s;
+}
+
+.form-input:focus, .form-textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+}
+
+.form-textarea {
+  resize: none;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius);
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  font-weight: 500;
+  border: none;
+  transition: opacity 0.3s;
+}
+
+.submit-button:hover {
+  opacity: 0.9;
+}
+
+.submit-button:disabled {
+  opacity: 0.7;
+}
+
+.submit-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 0.75rem;
+  animation: spin 1s linear infinite;
+}
+
+.spinner-track {
+  fill: none;
+  stroke: rgba(0, 0, 0, 0.3);
+}
+
+.spinner {
+  fill: none;
+  stroke: black;
+  stroke-dasharray: 60;
+  stroke-dashoffset: 60;
+  animation: dash 1.5s ease-in-out infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes dash {
+  0% { stroke-dashoffset: 60; }
+  50% { stroke-dashoffset: 20; }
+  100% { stroke-dashoffset: 60; }
+}
+
+/* Footer */
+.footer {
+  padding: 3rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .footer-content {
+    flex-direction: row;
+  }
+}
+
+.copyright {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+.footer-nav {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.footer-link {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-link:hover {
+  color: var(--foreground);
+}
+
+/* Animations */
+@keyframes fade-in {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-in {
+  0% { transform: scale(0.95); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes slide-up {
+  0% { transform: translateY(20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slide-right {
+  0% { transform: translateX(-20px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) translateX(-50%); }
+  50% { transform: translateY(-10px) translateX(-50%); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-slide-right {
+  animation: slide-right 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+   </style>
+</head>
+<body>
+  <!-- Custom Cursor Canvas -->
+  <canvas id="cursorCanvas"></canvas>
+  
+  <!-- Particle Background -->
+  <div id="particle-container"></div>
+  
+  <!-- Navbar -->
+  <header id="navbar">
+    <div class="container">
+      <div class="logo">S.</div>
+      <nav>
+        <ul>
+          <li><a href="#home" class="nav-item active">Home</a></li>
+          <li><a href="#about" class="nav-item">About</a></li>
+          <li><a href="#skills" class="nav-item">Skills</a></li>
+          <li><a href="#projects" class="nav-item">Projects</a></li>
+          <li><a href="#contact" class="nav-item">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="mobile-menu-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+  
+  <main>
+    <!-- Hero Section -->
+    <section id="home" class="section-container">
+      <div class="max-w-3xl mx-auto text-center">
+        <div class="mb-4 inline-block animate-fade-in">
+          <span class="px-3 py-1 rounded-full border border-primary/20 text-sm font-medium">
+            Developer & Designer
+          </span>
+        </div>
+        <h1 class="text-4xl md:text-6xl font-bold mb-6 animate-fade-in hero-title">
+          Hi, I'm <span class="text-primary">Sridharan</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-muted-foreground mb-10 animate-fade-in hero-subtitle">
+          Creating elegant solutions through design and code.
+        </p>
+        <div class="flex justify-center space-x-4 animate-fade-in button-group">
+          <button class="btn-primary">Get in touch</button>
+          <button class="btn-secondary">View projects</button>
+        </div>
+      </div>
+      <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-float scroll-indicator">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 5v14"></path>
+          <path d="m19 12-7 7-7-7"></path>
+        </svg>
+      </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="section-container">
+      <div class="grid-2">
+        <div class="space-y-6">
+          <span class="section-tag animate-slide-right">About Me</span>
+          <h2 class="section-title animate-slide-right">Developer with an eye for design</h2>
+          <div class="space-y-4 text-muted-foreground animate-slide-right about-text">
+            <p>
+              I'm a passionate developer and designer focused on creating clean, user-centered digital experiences. 
+              With a background in both development and design, I bring a unique perspective to every project.
+            </p>
+            <p>
+              My approach combines technical expertise with aesthetic sensibility, allowing me to build solutions that 
+              are not only functional but also visually compelling and intuitive to use.
+            </p>
+            <p>
+              When I'm not coding or designing, you'll find me exploring new technologies, reading about design trends, 
+              or seeking inspiration in art and nature.
+            </p>
+          </div>
+        </div>
+        <div class="glass-panel p-8 relative animate-scale-in">
+          <div class="stats-grid">
+            <div class="space-y-2">
+              <p class="stat-number">5+</p>
+              <p class="stat-label">Years Experience</p>
+            </div>
+            <div class="space-y-2">
+              <p class="stat-number">50+</p>
+              <p class="stat-label">Projects Completed</p>
+            </div>
+            <div class="space-y-2">
+              <p class="stat-number">20+</p>
+              <p class="stat-label">Happy Clients</p>
+            </div>
+            <div class="space-y-2">
+              <p class="stat-number">10+</p>
+              <p class="stat-label">Design Awards</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Skills Section -->
+    <section id="skills" class="section-container">
+      <div class="text-center mb-16">
+        <span class="text-sm font-medium text-muted-foreground uppercase tracking-wider animate-fade-in section-tag">
+          My Skills
+        </span>
+        <h2 class="text-3xl md:text-4xl font-bold mt-2 animate-fade-in section-title">
+          Expertise & Technologies
+        </h2>
+      </div>
+      
+      <div class="skills-grid">
+        <div class="glass-panel p-6 animate-slide-up">
+          <h3 class="skill-title">Development</h3>
+          <ul class="skill-list">
+            <li>React & React Native</li>
+            <li>TypeScript / JavaScript</li>
+            <li>Node.js & Express</li>
+            <li>Next.js</li>
+            <li>RESTful APIs</li>
+            <li>GraphQL</li>
+          </ul>
+        </div>
+        
+        <div class="glass-panel p-6 animate-slide-up">
+          <h3 class="skill-title">Design</h3>
+          <ul class="skill-list">
+            <li>UI/UX Design</li>
+            <li>Design Systems</li>
+            <li>Figma & Sketch</li>
+            <li>Wireframing</li>
+            <li>Prototyping</li>
+            <li>User Research</li>
+          </ul>
+        </div>
+        
+        <div class="glass-panel p-6 animate-slide-up">
+          <h3 class="skill-title">Other Skills</h3>
+          <ul class="skill-list">
+            <li>Project Management</li>
+            <li>Git & Version Control</li>
+            <li>CI/CD Pipelines</li>
+            <li>Performance Optimization</li>
+            <li>Responsive Design</li>
+            <li>Accessibility (a11y)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section id="projects" class="section-container">
+      <div class="text-center mb-16">
+        <span class="text-sm font-medium text-muted-foreground uppercase tracking-wider animate-fade-in section-tag">
+          Portfolio
+        </span>
+        <h2 class="text-3xl md:text-4xl font-bold mt-2 animate-fade-in section-title">
+          Selected Projects
+        </h2>
+      </div>
+      
+      <div class="filter-container animate-fade-in">
+        <div class="filter-buttons">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="development">Development</button>
+          <button class="filter-btn" data-filter="design">Design</button>
+          <button class="filter-btn" data-filter="mobile">Mobile</button>
+        </div>
+      </div>
+      
+      <div class="projects-grid">
+        <div class="glass-panel overflow-hidden animate-scale-in project-card" data-category="development">
+          <div class="project-image">
+            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1999&auto=format&fit=crop" alt="E-Commerce Platform">
+          </div>
+          <div class="project-content">
+            <div class="project-header">
+              <h3 class="project-title">E-Commerce Platform</h3>
+              <span class="project-category">Development</span>
+            </div>
+            <p class="project-description">A modern e-commerce platform with a focus on user experience and performance.</p>
+            <a href="#" class="project-link">
+              View Project
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+        </div>
+        
+        <div class="glass-panel overflow-hidden animate-scale-in project-card" data-category="design">
+          <div class="project-image">
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop" alt="Finance Dashboard">
+          </div>
+          <div class="project-content">
+            <div class="project-header">
+              <h3 class="project-title">Finance Dashboard</h3>
+              <span class="project-category">Design</span>
+            </div>
+            <p class="project-description">Interactive dashboard with real-time data visualization for financial analytics.</p>
+            <a href="#" class="project-link">
+              View Project
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+        </div>
+        
+        <div class="glass-panel overflow-hidden animate-scale-in project-card" data-category="mobile">
+          <div class="project-image">
+            <img src="https://images.unsplash.com/photo-1584208124016-6ccf6ebd4e97?q=80&w=1974&auto=format&fit=crop" alt="Health & Wellness App">
+          </div>
+          <div class="project-content">
+            <div class="project-header">
+              <h3 class="project-title">Health & Wellness App</h3>
+              <span class="project-category">Mobile</span>
+            </div>
+            <p class="project-description">Mobile application for tracking health metrics and providing personalized wellness recommendations.</p>
+            <a href="#" class="project-link">
+              View Project
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+        </div>
+        
+        <div class="glass-panel overflow-hidden animate-scale-in project-card" data-category="design">
+          <div class="project-image">
+            <img src="https://images.unsplash.com/photo-1576153192396-180ecef2a715?q=80&w=1974&auto=format&fit=crop" alt="Brand Identity System">
+          </div>
+          <div class="project-content">
+            <div class="project-header">
+              <h3 class="project-title">Brand Identity System</h3>
+              <span class="project-category">Design</span>
+            </div>
+            <p class="project-description">Comprehensive brand identity system for a technology startup.</p>
+            <a href="#" class="project-link">
+              View Project
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="section-container">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-16">
+          <span class="text-sm font-medium text-muted-foreground uppercase tracking-wider animate-fade-in section-tag">
+            Get in Touch
+          </span>
+          <h2 class="text-3xl md:text-4xl font-bold mt-2 animate-fade-in section-title">
+            Let's Work Together
+          </h2>
+        </div>
+        
+        <div class="contact-grid">
+          <div class="space-y-8 animate-slide-right">
+            <div>
+              <h3 class="contact-subtitle">Contact Information</h3>
+              <p class="contact-text">
+                Feel free to reach out if you're looking for a developer, have a question, or just want to connect.
+              </p>
+            </div>
+            
+            <div class="contact-methods">
+              <div class="contact-method">
+                <div class="contact-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="contact-method-label">Email</p>
+                  <a href="mailto:contact@sridharan.com" class="contact-method-value">
+                    contact@sridharan.com
+                  </a>
+                </div>
+              </div>
+              
+              <div class="contact-method">
+                <div class="contact-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="contact-method-label">Phone</p>
+                  <a href="tel:+11234567890" class="contact-method-value">
+                    +1 (123) 456-7890
+                  </a>
+                </div>
+              </div>
+              
+              <div class="contact-method">
+                <div class="contact-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="contact-method-label">Location</p>
+                  <p class="contact-method-value">
+                    San Francisco, CA
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <h3 class="contact-subtitle">Connect</h3>
+              <div class="social-links">
+                <a href="#" class="social-link">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                    <rect x="2" y="9" width="4" height="12"></rect>
+                    <circle cx="4" cy="4" r="2"></circle>
+                  </svg>
+                </a>
+                <a href="#" class="social-link">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+                  </svg>
+                </a>
+                <a href="#" class="social-link">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                  </svg>
+                </a>
+                <a href="#" class="social-link">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="animate-scale-in">
+            <div class="glass-panel p-8 contact-form-container">
+              <form id="contactForm" class="contact-form">
+                <div class="form-row">
+                  <div>
+                    <label for="name" class="form-label">
+                      Name
+                    </label>
+                    <input
+                      id="name"
+                      name="name"
+                      type="text"
+                      required
+                      class="form-input"
+                    />
+                  </div>
+                  <div>
+                    <label for="email" class="form-label">
+                      Email
+                    </label>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      required
+                      class="form-input"
+                    />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="message" class="form-label">
+                    Message
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows="5"
+                    required
+                    class="form-textarea"
+                  ></textarea>
+                </div>
+                <button
+                  type="submit"
+                  class="submit-button"
+                >
+                  Send Message
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div>
+          <p class="copyright">
+            © <span id="currentYear"></span> Sridharan. All rights reserved.
+          </p>
+        </div>
+        
+        <nav class="footer-nav">
+          <a href="#home" class="footer-link">Home</a>
+          <a href="#about" class="footer-link">About</a>
+          <a href="#skills" class="footer-link">Skills</a>
+          <a href="#projects" class="footer-link">Projects</a>
+          <a href="#contact" class="footer-link">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- <script src="script.js"></script> -->
+   <script>
+    // DOM elements
+const navbar = document.getElementById('navbar');
+const currentYearElement = document.getElementById('currentYear');
+const contactForm = document.getElementById('contactForm');
+const filterButtons = document.querySelectorAll('.filter-btn');
+const projectCards = document.querySelectorAll('.project-card');
+
+// Set current year in footer
+currentYearElement.textContent = new Date().getFullYear();
+
+// Navbar scroll effect
+function handleScroll() {
+  if (window.scrollY > 20) {
+    navbar.classList.add('scrolled');
+  } else {
+    navbar.classList.remove('scrolled');
+  }
+}
+
+window.addEventListener('scroll', handleScroll);
+
+// Smooth scrolling for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    
+    const targetId = this.getAttribute('href');
+    const targetElement = document.querySelector(targetId);
+    
+    if (targetElement) {
+      window.scrollTo({
+        top: targetElement.offsetTop,
+        behavior: 'smooth'
+      });
+      
+      // Update active nav item
+      document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      this.classList.add('active');
+    }
+  });
+});
+
+// Update active nav item on scroll
+function updateActiveNavItem() {
+  const sections = document.querySelectorAll('section');
+  const navItems = document.querySelectorAll('.nav-item');
+  
+  sections.forEach((section, index) => {
+    const rect = section.getBoundingClientRect();
+    if (rect.top <= 100 && rect.bottom >= 100) {
+      navItems.forEach(item => item.classList.remove('active'));
+      navItems[index].classList.add('active');
+    }
+  });
+}
+
+window.addEventListener('scroll', updateActiveNavItem);
+
+// Project filtering
+filterButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    // Update active button
+    filterButtons.forEach(btn => btn.classList.remove('active'));
+    button.classList.add('active');
+    
+    // Filter projects
+    const filter = button.dataset.filter;
+    
+    projectCards.forEach(card => {
+      if (filter === 'all' || card.dataset.category === filter) {
+        card.style.display = 'block';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+});
+
+// Form submission
+if (contactForm) {
+  contactForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const submitButton = this.querySelector('button[type="submit"]');
+    submitButton.innerHTML = '<span class="submit-loading"><svg class="loading-icon" viewBox="0 0 24 24"><circle class="spinner-track" cx="12" cy="12" r="10" stroke-width="2"></circle><circle class="spinner" cx="12" cy="12" r="10" stroke-width="2"></circle></svg>Sending...</span>';
+    submitButton.disabled = true;
+    
+    // Simulate form submission (replace with actual form submission)
+    setTimeout(() => {
+      // Create success message
+      const successMessage = document.createElement('div');
+      successMessage.className = 'form-success-message';
+      successMessage.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-green-500 mx-auto mb-4" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+        <h3 class="success-title">Message Sent!</h3>
+        <p class="success-text">
+          Thank you for reaching out. I'll get back to you as soon as possible.
+        </p>
+      `;
+      
+      // Replace form with success message
+      this.parentNode.replaceChild(successMessage, this);
+    }, 1500);
+  });
+}
+
+// Particle background
+const particleContainer = document.getElementById("particle-container");
+const particles = [];
+const particleCount = Math.floor((window.innerWidth * window.innerHeight) / 15000);
+
+function createParticle() {
+  const particle = document.createElement("div");
+  particle.classList.add("particle");
+
+  const size = Math.random() * 3 + 1;
+  const initialX = Math.random() * window.innerWidth;
+  const initialY = Math.random() * window.innerHeight;
+
+  particle.style.width = `${size}px`;
+  particle.style.height = `${size}px`;
+  particle.style.left = `${initialX}px`;
+  particle.style.top = `${initialY}px`;
+  particle.style.opacity = Math.random() * 0.3 + 0.1;
+
+  particleContainer.appendChild(particle);
+
+  return {
+    element: particle,
+    initialX,
+    initialY,
+    x: initialX,
+    y: initialY,
+    dx: (Math.random() - 0.5) * 0.2,
+    dy: (Math.random() - 0.5) * 0.2,
+  };
+}
+
+for (let i = 0; i < particleCount; i++) {
+  particles.push(createParticle());
+}
+
+document.addEventListener("mousemove", (e) => {
+  particles.forEach((particle) => {
+    const dx = e.clientX - particle.x;
+    const dy = e.clientY - particle.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    const maxDistance = 150;
+
+    if (distance < maxDistance) {
+      const angle = Math.atan2(dy, dx);
+      const force = (1 - distance / maxDistance) * 5;
+      const targetX = particle.initialX - Math.cos(angle) * force * 10;
+      const targetY = particle.initialY - Math.sin(angle) * force * 10;
+
+      particle.x += (targetX - particle.x) * 0.1;
+      particle.y += (targetY - particle.y) * 0.1;
+    }
+  });
+});
+
+function animateParticles() {
+  particles.forEach((particle) => {
+    particle.x += particle.dx;
+    particle.y += particle.dy;
+
+    if (particle.x < 0 || particle.x > window.innerWidth) particle.dx *= -1;
+    if (particle.y < 0 || particle.y > window.innerHeight) particle.dy *= -1;
+
+    particle.element.style.transform = `translate(${particle.x - particle.initialX}px, ${particle.y - particle.initialY}px)`;
+  });
+
+  requestAnimationFrame(animateParticles);
+}
+
+animateParticles();
+
+function handleResize() {
+  const newParticleCount = Math.floor((window.innerWidth * window.innerHeight) / 15000);
+
+  if (newParticleCount > particles.length) {
+    for (let i = particles.length; i < newParticleCount; i++) {
+      particles.push(createParticle());
+    }
+  } else if (newParticleCount < particles.length) {
+    for (let i = particles.length - 1; i >= newParticleCount; i--) {
+      particleContainer.removeChild(particles[i].element);
+      particles.pop();
+    }
+  }
+}
+
+window.addEventListener("resize", handleResize);
+
+// Custom cursor trail effect
+(() => {
+  const canvas = document.getElementById('cursorCanvas');
+  const ctx = canvas.getContext('2d', { alpha: true });
+  
+  let trailPoints = [];
+  let particles = [];
+  let mouse = { x: 0, y: 0 };
+  let lastTime = 0;
+  
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    canvas.style.width = `${window.innerWidth}px`;
+    canvas.style.height = `${window.innerHeight}px`;
+  }
+  
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+  
+  document.addEventListener('mousemove', (e) => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+    
+    trailPoints.push({ x: e.clientX, y: e.clientY, age: 0 });
+    if (trailPoints.length > 20) trailPoints.shift();
+  });
+  
+  document.addEventListener('click', (e) => createBurst(e.clientX, e.clientY));
+  
+  function createBurst(x, y) {
+    for (let i = 0; i < 30; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = 3 + Math.random() * 5;
+      particles.push({
+        x, y,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        radius: 0.5 + Math.random(),
+        alpha: 1,
+        life: 0,
+        maxLife: 10 + Math.random() * 10
+      });
+    }
+  }
+  
+  function drawTrail() {
+    if (trailPoints.length < 2) return;
+    
+    ctx.beginPath();
+    ctx.moveTo(trailPoints[0].x, trailPoints[0].y);
+    
+    for (let i = 1; i < trailPoints.length; i++) {
+      const p1 = trailPoints[i - 1];
+      const p2 = trailPoints[i];
+      const midX = (p1.x + p2.x) / 2;
+      const midY = (p1.y + p2.y) / 2;
+      ctx.quadraticCurveTo(p1.x, p1.y, midX, midY);
+    }
+    
+    const gradient = ctx.createLinearGradient(
+      trailPoints[0].x, trailPoints[0].y,
+      trailPoints[trailPoints.length - 1].x, trailPoints[trailPoints.length - 1].y
+    );
+    gradient.addColorStop(0, "rgba(255, 255, 255, 0)");
+    gradient.addColorStop(1, "rgba(255, 255, 255, 1)");
+    
+    ctx.strokeStyle = gradient;
+    ctx.lineWidth = 3;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.shadowColor = "rgba(255, 255, 255, 1)";
+    ctx.shadowBlur = 20;
+    ctx.stroke();
+  }
+  
+  function updateAndDrawParticles(deltaTime) {
+    particles = particles.filter(p => {
+      p.x += p.vx * deltaTime;
+      p.y += p.vy * deltaTime;
+      p.vy += 0.1 * deltaTime;
+      p.life += deltaTime;
+      p.alpha = 1 - (p.life / p.maxLife);
+      
+      if (p.alpha > 0) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
+        ctx.fill();
+        return true;
+      }
+      return false;
+    });
+  }
+  
+  function animate(currentTime) {
+    const deltaTime = (currentTime - lastTime) / 16.67; // Normalize to ~60 FPS
+    lastTime = currentTime;
+    
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    drawTrail();
+    updateAndDrawParticles(deltaTime);
+    
+    trailPoints = trailPoints.filter(point => {
+      point.age += deltaTime;
+      return point.age < 15;
+    });
+    
+    requestAnimationFrame(animate);
+  }
+  
+  requestAnimationFrame(animate);
+})();
+
+
+   </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

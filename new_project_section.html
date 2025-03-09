@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Project Showcase</title>
+<!--     <link rel="stylesheet" href="styles.css"> -->
+  <style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  background-color: black;
+  margin: 0;
+  overflow: hidden;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: white;
+}
+
+.container {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+#image-track {
+  display: flex;
+  gap: 4vmin;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(0%, -50%);
+  user-select: none;
+  transition: transform 0.5s ease;
+}
+
+.project-card {
+  position: relative;
+  width: 40vmin;
+  height: 56vmin;
+  transition: all 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.project-card::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.project-card:hover::after {
+  opacity: 1;
+}
+
+.project-card-title {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.project-card:hover .project-card-title {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.expanded-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.expanded-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.expanded-card {
+  width: 80%;
+  max-width: 1200px;
+  height: 80%;
+  background-color: #111;
+  border-radius: 15px;
+  overflow: hidden;
+  display: flex;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transform: scale(0.9);
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.expanded-overlay.active .expanded-card {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.expanded-image {
+  width: 50%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.expanded-content {
+  width: 50%;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.close-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  z-index: 10;
+}
+
+.close-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.close-button::before,
+.close-button::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 2px;
+  background-color: white;
+}
+
+.close-button::before {
+  transform: rotate(45deg);
+}
+
+.close-button::after {
+  transform: rotate(-45deg);
+}
+
+.expanded-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.5s ease 0.1s;
+}
+
+.expanded-content p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.5s ease 0.2s;
+}
+
+.expanded-overlay.active .expanded-content h2,
+.expanded-overlay.active .expanded-content p,
+.expanded-overlay.active .expanded-content .tech-stack,
+.expanded-overlay.active .expanded-content .project-link {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-bottom: 2.5rem;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.5s ease 0.3s;
+}
+
+.tech-stack span {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 0.6rem 1.2rem;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.tech-stack span:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.project-link {
+  display: inline-block;
+  background-color: white;
+  color: black;
+  padding: 0.8rem 1.8rem;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.5s ease 0.4s;
+}
+
+.project-link:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s ease;
+}
+
+.minimized-cards {
+  position: fixed;
+  bottom: 30px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  z-index: 90;
+  padding: 0 20px;
+  transition: all 0.5s ease;
+}
+
+.minimized-card {
+  width: 25vmin;
+  height: 15vmin;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.minimized-card:hover {
+  transform: translateY(-5px);
+}
+
+.minimized-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slide-hint {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px 20px;
+  border-radius: 30px;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+  z-index: 80;
+}
+
+.slide-hint:hover {
+  opacity: 1;
+}
+
+.hint-icon {
+  animation: slideHint 1.5s infinite;
+}
+
+@keyframes slideHint {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .expanded-card {
+    flex-direction: column;
+    height: auto;
+    max-height: 90%;
+    overflow-y: auto;
+  }
+
+  .expanded-image {
+    width: 100%;
+    height: 40%;
+  }
+
+  .expanded-content {
+    width: 100%;
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .project-card {
+    width: 70vmin;
+    height: 90vmin;
+  }
+
+  .minimized-card {
+    width: 20vmin;
+    height: 12vmin;
+  }
+
+  .expanded-content h2 {
+    font-size: 2rem;
+  }
+
+  .expanded-content p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #image-track {
+    gap: 3vmin;
+  }
+
+  .project-card {
+    width: 80vmin;
+    height: 100vmin;
+  }
+
+  .minimized-card {
+    width: 18vmin;
+    height: 10vmin;
+  }
+
+  .expanded-content {
+    padding: 1.5rem;
+  }
+
+  .expanded-content h2 {
+    font-size: 1.8rem;
+  }
+
+  .tech-stack span {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+}
+  </style>
+</head>
+<body>
+    <div class="project_container">
+        <div id="image-track" data-mouse-down-at="0" data-prev-percentage="0">
+            <div class="project-card" data-index="0">
+                <img class="image" src="https://images.unsplash.com/photo-1524781289445-ddf8f5695861?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80" alt="Project A" draggable="false" />
+                <div class="project-card-title">Project A</div>
+            </div>
+            <div class="project-card" data-index="1">
+                <img class="image" src="https://images.unsplash.com/photo-1610194352361-4c81a6a8967e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1674&q=80" alt="Project B" draggable="false" />
+                <div class="project-card-title">Project B</div>
+            </div>
+            <div class="project-card" data-index="2">
+                <img class="image" src="https://images.unsplash.com/photo-1618202133208-2907bebba9e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80" alt="Project C" draggable="false" />
+                <div class="project-card-title">Project C</div>
+            </div>
+            <div class="project-card" data-index="3">
+                <img class="image" src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80" alt="Project D" draggable="false" />
+                <div class="project-card-title">Project D</div>
+            </div>
+            <div class="project-card" data-index="4">
+                <img class="image" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80" alt="Project E" draggable="false" />
+                <div class="project-card-title">Project E</div>
+            </div>
+            <div class="project-card" data-index="5">
+                <img class="image" src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80" alt="Project F" draggable="false" />
+                <div class="project-card-title">Project F</div>
+            </div>
+            <div class="project-card" data-index="6">
+                <img class="image" src="https://images.unsplash.com/photo-1558655146-d09347e92766?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80" alt="Project G" draggable="false" />
+                <div class="project-card-title">Project G</div>
+            </div>
+            <div class="project-card" data-index="7">
+                <img class="image" src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80" alt="Project H" draggable="false" />
+                <div class="project-card-title">Project H</div>
+            </div>
+        </div>
+        
+        <div class="expanded-overlay">
+            <div class="expanded-card">
+                <div class="close-button"></div>
+                <img class="expanded-image" src="/placeholder.svg" alt="Project Details">
+                <div class="expanded-content">
+                    <h2></h2>
+                    <p></p>
+                    <div class="tech-stack"></div>
+                    <a href="#" class="project-link">View Project</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="minimized-cards"></div>
+        
+        <div class="slide-hint">
+            <div class="hint-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 18L15 12L9 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <span>Slide to explore projects</span>
+        </div>
+    </div>
+
+<!--     <script src="script.js"></script> -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+  // Project data
+  const projectData = [
+    {
+      title: "Project A",
+      description:
+        "A sophisticated web application built with modern technologies to solve complex business problems. This project showcases advanced frontend techniques and responsive design principles.",
+      techStack: ["React", "Node.js", "MongoDB"],
+    },
+    {
+      title: "Project B",
+      description:
+        "An innovative mobile application designed to enhance user experience and streamline daily tasks. This app features intuitive navigation and real-time data synchronization.",
+      techStack: ["Flutter", "Firebase", "GraphQL"],
+    },
+    {
+      title: "Project C",
+      description:
+        "A cutting-edge e-commerce platform with advanced features and seamless payment integration. This platform handles thousands of transactions daily with robust security measures.",
+      techStack: ["Next.js", "Stripe", "PostgreSQL"],
+    },
+    {
+      title: "Project D",
+      description:
+        "A data visualization dashboard that transforms complex datasets into actionable insights. This tool helps businesses make informed decisions through interactive charts and reports.",
+      techStack: ["D3.js", "Python", "AWS"],
+    },
+    {
+      title: "Project E",
+      description:
+        "A robust content management system built for scalability and ease of use. This system allows non-technical users to manage digital content efficiently across multiple platforms.",
+      techStack: ["Vue.js", "Express", "MySQL"],
+    },
+    {
+      title: "Project F",
+      description:
+        "An AI-powered recommendation engine that delivers personalized content to users. This engine uses machine learning algorithms to analyze user behavior and preferences.",
+      techStack: ["TensorFlow", "Django", "Redis"],
+    },
+    {
+      title: "Project G",
+      description:
+        "A blockchain-based solution for secure and transparent transactions. This solution provides immutable records and smart contract functionality for various business applications.",
+      techStack: ["Solidity", "Web3.js", "Ethereum"],
+    },
+    {
+      title: "Project H",
+      description:
+        "A progressive web application that works offline and provides native-like experience. This app offers seamless performance across all devices with minimal data usage.",
+      techStack: ["PWA", "Service Workers", "IndexedDB"],
+    },
+  ]
+
+  const track = document.getElementById("image-track")
+  const cards = document.querySelectorAll(".project-card")
+  const expandedOverlay = document.querySelector(".expanded-overlay")
+  const expandedCard = document.querySelector(".expanded-card")
+  const expandedImage = document.querySelector(".expanded-image")
+  const expandedTitle = document.querySelector(".expanded-content h2")
+  const expandedDescription = document.querySelector(".expanded-content p")
+  const expandedTechStack = document.querySelector(".expanded-content .tech-stack")
+  const closeButton = document.querySelector(".close-button")
+  const minimizedCardsContainer = document.querySelector(".minimized-cards")
+  const slideHint = document.querySelector(".slide-hint")
+  let activeCardIndex = null
+  let isExpanded = false
+  const bottomCardsContainer = null
+
+  // Initialize slide hint
+  setTimeout(() => {
+    slideHint.style.opacity = "0.7"
+  }, 1000)
+
+  // Hide slide hint after 5 seconds
+  setTimeout(() => {
+    slideHint.style.opacity = "0"
+  }, 5000)
+
+  // Show slide hint when mouse moves
+  document.addEventListener("mousemove", () => {
+    if (!isExpanded) {
+      slideHint.style.opacity = "0.7"
+      clearTimeout(window.hintTimeout)
+      window.hintTimeout = setTimeout(() => {
+        slideHint.style.opacity = "0"
+      }, 3000)
+    }
+  })
+
+  // Track mouse events for sliding
+  const handleOnDown = (e) => {
+    if (isExpanded) return
+    track.dataset.mouseDownAt = e.clientX
+  }
+
+  const handleOnUp = () => {
+    if (isExpanded) return
+    track.dataset.mouseDownAt = "0"
+    track.dataset.prevPercentage = track.dataset.percentage || "0"
+  }
+
+  const handleOnMove = (e) => {
+    if (isExpanded || track.dataset.mouseDownAt === "0") return
+
+    const mouseDelta = Number.parseFloat(track.dataset.mouseDownAt) - e.clientX,
+      maxDelta = window.innerWidth / 2
+
+    const percentage = (mouseDelta / maxDelta) * -100,
+      nextPercentageUnconstrained = Number.parseFloat(track.dataset.prevPercentage || "0") + percentage,
+      nextPercentage = Math.max(Math.min(nextPercentageUnconstrained, 0), -100)
+
+    track.dataset.percentage = nextPercentage
+
+    track.animate(
+      {
+        transform: `translate(${nextPercentage}%, -50%)`,
+      },
+      { duration: 1200, fill: "forwards" },
+    )
+
+    for (const card of cards) {
+      const image = card.querySelector(".image")
+      image.animate(
+        {
+          objectPosition: `${100 + nextPercentage}% center`,
+        },
+        { duration: 1200, fill: "forwards" },
+      )
+    }
+  }
+
+  // Handle card click to expand
+  cards.forEach((card, index) => {
+    card.addEventListener("click", () => {
+      expandCard(index)
+    })
+  })
+
+  // Function to expand a card
+  function expandCard(index) {
+    if (isExpanded) return
+
+    isExpanded = true
+    activeCardIndex = index
+
+    // Get the clicked card's data
+    const cardData = projectData[index]
+    const cardImage = cards[index].querySelector(".image").src
+
+    // Populate expanded card content
+    expandedImage.src = cardImage
+    expandedImage.alt = cardData.title
+    expandedTitle.textContent = cardData.title
+    expandedDescription.textContent = cardData.description
+
+    // Clear and populate tech stack
+    expandedTechStack.innerHTML = ""
+    cardData.techStack.forEach((tech) => {
+      const span = document.createElement("span")
+      span.textContent = tech
+      expandedTechStack.appendChild(span)
+    })
+
+    // Create minimized cards
+    createMinimizedCards(index)
+
+    // Show expanded overlay with animation
+    expandedOverlay.classList.add("active")
+
+    // Hide slide hint
+    slideHint.style.opacity = "0"
+
+    // Prevent body scrolling
+    document.body.style.overflow = "hidden"
+  }
+
+  // Function to create minimized cards
+  function createMinimizedCards(activeIndex) {
+    minimizedCardsContainer.innerHTML = ""
+
+    cards.forEach((card, index) => {
+      if (index !== activeIndex) {
+        const minimizedCard = document.createElement("div")
+        minimizedCard.className = "minimized-card"
+        minimizedCard.dataset.index = index
+
+        const img = document.createElement("img")
+        img.src = card.querySelector(".image").src
+        img.alt = projectData[index].title
+
+        minimizedCard.appendChild(img)
+        minimizedCardsContainer.appendChild(minimizedCard)
+
+        // Add click event to switch to this card
+        minimizedCard.addEventListener("click", (e) => {
+          e.stopPropagation()
+          switchExpandedCard(index)
+        })
+      }
+    })
+  }
+
+  // Function to switch between expanded cards
+  function switchExpandedCard(newIndex) {
+    // Animate out current content
+    expandedTitle.style.opacity = "0"
+    expandedTitle.style.transform = "translateY(20px)"
+    expandedDescription.style.opacity = "0"
+    expandedDescription.style.transform = "translateY(20px)"
+    expandedTechStack.style.opacity = "0"
+    expandedTechStack.style.transform = "translateY(20px)"
+
+    // After a short delay, update content and animate in
+    setTimeout(() => {
+      activeCardIndex = newIndex
+
+      // Get the new card's data
+      const cardData = projectData[newIndex]
+      const cardImage = cards[newIndex].querySelector(".image").src
+
+      // Update expanded card content
+      expandedImage.src = cardImage
+      expandedImage.alt = cardData.title
+      expandedTitle.textContent = cardData.title
+      expandedDescription.textContent = cardData.description
+
+      // Clear and populate tech stack
+      expandedTechStack.innerHTML = ""
+      cardData.techStack.forEach((tech) => {
+        const span = document.createElement("span")
+        span.textContent = tech
+        expandedTechStack.appendChild(span)
+      })
+
+      // Create new minimized cards
+      createMinimizedCards(newIndex)
+
+      // Animate in new content
+      setTimeout(() => {
+        expandedTitle.style.opacity = "1"
+        expandedTitle.style.transform = "translateY(0)"
+        expandedDescription.style.opacity = "1"
+        expandedDescription.style.transform = "translateY(0)"
+        expandedTechStack.style.opacity = "1"
+        expandedTechStack.style.transform = "translateY(0)"
+      }, 100)
+    }, 300)
+  }
+
+  // Function to collapse the expanded card
+  function collapseCard() {
+    if (!isExpanded) return
+
+    // Hide expanded overlay with animation
+    expandedOverlay.classList.remove("active")
+
+    // Clear minimized cards
+    minimizedCardsContainer.innerHTML = ""
+
+    isExpanded = false
+    activeCardIndex = null
+
+    // Show slide hint
+    slideHint.style.opacity = "0.7"
+
+    // Restore body scrolling
+    document.body.style.overflow = ""
+  }
+
+  // Close expanded card when close button is clicked
+  closeButton.addEventListener("click", (e) => {
+    e.stopPropagation()
+    collapseCard()
+  })
+
+  // Close expanded card when clicking outside the expanded card
+  expandedOverlay.addEventListener("click", (e) => {
+    if (e.target === expandedOverlay) {
+      collapseCard()
+    }
+  })
+
+  // Handle escape key to collapse card
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && isExpanded) {
+      collapseCard()
+    }
+  })
+
+  // Handle touch events for mobile
+  window.onmousedown = (e) => handleOnDown(e)
+  window.ontouchstart = (e) => handleOnDown(e.touches[0])
+  window.onmouseup = (e) => handleOnUp(e)
+  window.ontouchend = (e) => handleOnUp(e.touches[0])
+  window.onmousemove = (e) => handleOnMove(e)
+  window.ontouchmove = (e) => handleOnMove(e.touches[0])
+
+  // Add swipe functionality for expanded cards
+  let touchStartX = 0
+  let touchEndX = 0
+
+  function handleSwipe() {
+    if (isExpanded) {
+      const swipeThreshold = 100
+      const swipeDistance = touchEndX - touchStartX
+
+      if (Math.abs(swipeDistance) > swipeThreshold) {
+        let nextIndex
+
+        if (swipeDistance > 0) {
+          // Swipe right - previous card
+          nextIndex = (activeCardIndex - 1 + cards.length) % cards.length
+        } else {
+          // Swipe left - next card
+          nextIndex = (activeCardIndex + 1) % cards.length
+        }
+
+        switchExpandedCard(nextIndex)
+      }
+    }
+  }
+
+  document.addEventListener("touchstart", (e) => {
+    touchStartX = e.changedTouches[0].screenX
+  })
+
+  document.addEventListener("touchend", (e) => {
+    touchEndX = e.changedTouches[0].screenX
+    handleSwipe()
+  })
+
+  // Prevent expanded card from closing when clicking inside it
+  expandedCard.addEventListener("click", (e) => {
+    e.stopPropagation()
+  })
+
+  // Add keyboard navigation for expanded cards
+  document.addEventListener("keydown", (e) => {
+    if (!isExpanded) return
+
+    if (e.key === "ArrowLeft") {
+      // Previous card
+      const prevIndex = (activeCardIndex - 1 + cards.length) % cards.length
+      switchExpandedCard(prevIndex)
+    } else if (e.key === "ArrowRight") {
+      // Next card
+      const nextIndex = (activeCardIndex + 1) % cards.length
+      switchExpandedCard(nextIndex)
+    }
+  })
+})
+
+
+  </script>
+</body>
+</html>
+

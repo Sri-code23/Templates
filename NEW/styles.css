@@ -1,0 +1,328 @@
+:root{
+    --card-back-color: #050505;
+    --border-style: 0.1ex solid rgb(24, 24, 24);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    background: rgb(5, 5, 5);
+    color: #ffffff;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    overflow-x: hidden;
+}
+
+::selection{
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+}
+
+/* Navigation Styles */
+.nav-container {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    background: linear-gradient(180deg, #000000, #000000, rgb(4, 4, 4), rgb(5, 5, 5));
+    /* backdrop-filter: blur(10px); */
+    transition: all 0.3s ease;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    /* color:color-mix(in srgb, #b3ff00 50%, #003cff 50%); */
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+nav a {
+    color: #ffffff;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s;
+    position: relative;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #143d2d;
+    transition: width 0.3s;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+.mobile-menu {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 1100;
+}
+
+/* Background Animation */
+.background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.symbols {
+    position: absolute;
+    width: 100%;
+    height: 200%;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.05);
+}
+
+.symbol {
+    position: absolute;
+    animation: floatSymbol 20s linear infinite;
+}
+
+@keyframes floatSymbol {
+    0% { transform: translateY(100vh); }
+    100% { transform: translateY(-100vh); }
+}
+
+/* Section Styles */
+#services, #about, #home, #blogs_slide{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 6%;
+    /* border: 1px solid #000000;  */
+    overflow: hidden;
+    flex-direction: column;  
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.profile {
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 40px;
+    border: 3px solid #6b6b6b;
+    box-shadow: 0 0 20px rgba(156, 156, 156, 0.3);
+}
+
+.profile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.text-content {
+    /* border: 1px solid rgb(90, 90, 90); */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    /* -webkit-user-drag: element; */
+}
+
+h1{
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 0;
+    opacity: 0;
+    /* border: 1px solid rgb(139, 9, 9); */
+    animation: fadeInText 0.5s 0.5s forwards;
+}
+
+.h2head{
+    font-size: 1.2rem;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin-bottom: 0;
+    opacity: 0;
+    /* border: 1px solid rgb(139, 9, 9); */
+    animation: fadeInText 0.5s 0.5s forwards;
+}
+
+.subtitle {
+    font-size: 4.5rem;
+    color: #208888;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 700;
+    /* border: 1px solid rgb(90, 90, 90); */
+    opacity: 1;
+    padding: 0px 0px;
+    margin-bottom: 0px;
+    animation: fadeInText 0.5s 0.5s forwards;
+}
+
+@keyframes fadeInText {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+
+
+
+
+
+
+
+/* -----------------------about page  ------------------------- */
+/* #about p{
+    font-size: 20px;
+    line-height: 1.5;
+} */
+#each_heading{
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+
+.about_container{
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+#who{
+    font-size: 1.5rem;
+    padding-bottom: 8px;
+}
+
+.whoiam, .whatido{
+    width: 50%;
+    border:0.1ex solid rgb(24, 24, 24);
+    border-radius: 10px;
+    margin: 3px 3px;
+    padding: 30px 30px;
+    background-color:#050505;
+}
+
+/* ------------------------ */
+
+
+/* --------footer------- */
+footer {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: transparent;
+    text-align: center;
+    margin-top: 1%;
+    width: 100%;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+footer p{
+    font-size: small;
+}
+/* ------------------ */
+
+
+
+
+
+
+
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    /* menu bar */
+    .mobile-menu {
+        display: block;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(10px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: right 0.3s ease;
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile {
+        width: 250px;
+        height: 250px;
+    }
+
+    h1 {
+        font-size: 1.7rem;
+    }
+
+    .subtitle {
+        font-size: 2.5rem;
+    }
+
+    /* about page */
+
+    .about_container{
+        display: flex;
+        gap: 8px;
+        flex-direction: column;
+    }
+
+    .whoiam, .whatido{
+        height: 50%;
+        width: 100%;
+        
+    }
+    
+    #who{
+        font-size: 1rem;
+        padding-bottom: 8px;
+    }
+
+    #ppa{
+        font-size: medium;
+    }
+}

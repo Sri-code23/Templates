@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Cursor Particles</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: black;
+            overflow: hidden;
+            cursor: none;
+        }
+        .cursor {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: white;
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+        }
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 20px;
+            background: linear-gradient(to bottom, rgba(255,255,255,1), rgba(255,255,255,0));
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.9;
+            transform: rotate(45deg);
+            transition: transform 0.15s ease-out, opacity 0.4s ease-out;
+        }
+        .burst-particle {
+            position: absolute;
+            width: 4px;
+            height: 10px;
+            background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 80%);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 1;
+            animation: burst-move 0.5s ease-out forwards;
+        }
+        @keyframes burst-move {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor" id="cursor"></div>
+    <script>
+        let particles = [];
+        const cursor = document.getElementById("cursor");
+
+        document.addEventListener("mousemove", (e) => {
+            cursor.style.left = `${e.clientX}px`;
+            cursor.style.top = `${e.clientY}px`;
+
+            const particle = document.createElement("div");
+            particle.classList.add("particle");
+            document.body.appendChild(particle);
+            
+            particle.style.left = `${e.clientX}px`;
+            particle.style.top = `${e.clientY}px`;
+            
+            particles.push(particle);
+            
+            setTimeout(() => {
+                particle.style.transform = "translateY(-10px) rotate(45deg) scale(1.5)";
+                particle.style.opacity = "0";
+            }, 50);
+            
+            setTimeout(() => {
+                particle.remove();
+                particles.shift();
+            }, 400);
+        });
+
+        document.addEventListener("click", (e) => {
+            for (let i = 0; i < 10; i++) {
+                const burstParticle = document.createElement("div");
+                burstParticle.classList.add("burst-particle");
+                document.body.appendChild(burstParticle);
+                
+                let angle = Math.random() * 2 * Math.PI;
+                let distance = Math.random() * 50 + 10;
+                burstParticle.style.setProperty('--x', `${Math.cos(angle) * distance}px`);
+                burstParticle.style.setProperty('--y', `${Math.sin(angle) * distance}px`);
+                
+                burstParticle.style.left = `${e.clientX}px`;
+                burstParticle.style.top = `${e.clientY}px`;
+                
+                setTimeout(() => {
+                    burstParticle.remove();
+                }, 500);
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Cursor Particles</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: black;
+            overflow: hidden;
+            cursor: none;
+        }
+        .cursor-trail {
+            position: absolute;
+            width: 10px;
+            height: 4px;
+            background: radial-gradient(circle, rgba(255,255,255,1) 30%, rgba(255,255,255,0) 80%);
+            border-radius: 50px;
+            pointer-events: none;
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.9));
+            opacity: 1;
+            transform: translate(-50%, -50%) rotate(0deg);
+            transition: transform 0.05s linear;
+        }
+        .burst-particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: radial-gradient(circle, rgba(255,255,255,1) 20%, rgba(255,255,255,0) 90%);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 1;
+            filter: drop-shadow(0 0 6px rgba(255, 255, 255, 1));
+            animation: burst-move 0.6s ease-out forwards;
+        }
+        @keyframes burst-move {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <script>
+        let lastX = 0, lastY = 0;
+        document.addEventListener("mousemove", (e) => {
+            const trail = document.createElement("div");
+            trail.classList.add("cursor-trail");
+            document.body.appendChild(trail);
+            
+            let angle = Math.atan2(e.clientY - lastY, e.clientX - lastX) * (180 / Math.PI);
+            trail.style.left = `${e.clientX}px`;
+            trail.style.top = `${e.clientY}px`;
+            trail.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
+            
+            lastX = e.clientX;
+            lastY = e.clientY;
+            
+            setTimeout(() => {
+                trail.remove();
+            }, 100);
+        });
+
+        document.addEventListener("click", (e) => {
+            for (let i = 0; i < 30; i++) {
+                const burstParticle = document.createElement("div");
+                burstParticle.classList.add("burst-particle");
+                document.body.appendChild(burstParticle);
+                
+                let angle = Math.random() * 2 * Math.PI;
+                let distance = Math.random() * 70 + 10;
+                let offsetX = Math.cos(angle) * distance;
+                let offsetY = Math.sin(angle) * distance;
+                
+                burstParticle.style.left = `${e.clientX}px`;
+                burstParticle.style.top = `${e.clientY}px`;
+                burstParticle.style.setProperty('--x', `${offsetX}px`);
+                burstParticle.style.setProperty('--y', `${offsetY}px`);
+                
+                setTimeout(() => {
+                    burstParticle.remove();
+                }, 600);
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////

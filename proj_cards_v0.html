@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Showcase</title>
+    <style>
+        :root {
+          --background-color: #121212;
+          --card-background: #1f1f1f;
+          --text-color: #ffffff;
+          --blue-500: #3b82f6;
+          --blue-600: #2563eb;
+        }
+
+        body {
+          font-family: Arial, sans-serif;
+          background-color: var(--background-color);
+          color: var(--text-color);
+          margin: 0;
+          padding: 0;
+        }
+
+        .project-showcase {
+          padding: 4rem 1rem;
+        }
+
+        .showcase-title {
+          font-size: 2rem;
+          font-weight: bold;
+          text-align: center;
+          margin-bottom: 2rem;
+        }
+
+        .project-container {
+          position: relative;
+          overflow: hidden;
+        }
+
+        .project-slider {
+          display: flex;
+          transition: transform 0.3s ease;
+        }
+
+        .project-card {
+          flex: 0 0 calc(33.333% - 2rem);
+          margin: 0 1rem;
+          background-color: var(--card-background);
+          border-radius: 0.5rem;
+          overflow: hidden;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          position: relative;
+          height: 400px;
+        }
+
+        .project-image {
+          height: 60%;
+          background-size: cover;
+          background-position: center;
+          position: relative;
+        }
+
+        .project-image::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: rgba(0, 0, 0, 0.4);
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover .project-image::after {
+          opacity: 1;
+        }
+
+        .project-number {
+          position: absolute;
+          top: 0.5rem;
+          left: 0.5rem;
+          background-color: var(--blue-500);
+          color: var(--text-color);
+          width: 2rem;
+          height: 2rem;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: bold;
+        }
+
+        .project-content {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background-color: var(--card-background);
+          padding: 1rem;
+          transform: translateY(60%);
+          transition: transform 0.3s ease;
+        }
+
+        .project-card:hover .project-content {
+          transform: translateY(0);
+        }
+
+        .project-title {
+          font-size: 1.25rem;
+          font-weight: bold;
+          margin-bottom: 0.5rem;
+        }
+
+        .project-description {
+          font-size: 0.875rem;
+          color: #a0aec0;
+          margin-bottom: 1rem;
+        }
+
+        .view-project-button {
+          background-color: var(--blue-500);
+          color: var(--text-color);
+          border: none;
+          padding: 0.5rem 1rem;
+          border-radius: 0.25rem;
+          font-weight: bold;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        }
+
+        .view-project-button:hover {
+          background-color: var(--blue-600);
+        }
+
+        .nav-button {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          background-color: rgba(255, 255, 255, 0.2);
+          border: none;
+          border-radius: 50%;
+          width: 3rem;
+          height: 3rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+          opacity: 0;
+        }
+
+        .nav-button:hover {
+          background-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .prev {
+          left: 1rem;
+        }
+
+        .next {
+          right: 1rem;
+        }
+
+        .project-container:hover .nav-button {
+          opacity: 1;
+        }
+
+        .popp {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: rgba(0, 0, 0, 0.5);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 1000;
+          opacity: 0;
+          visibility: hidden;
+          transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .popp.active {
+          opacity: 1;
+          visibility: visible;
+        }
+
+        .popp-content {
+          background-color: var(--card-background);
+          border-radius: 0.5rem;
+          padding: 2rem;
+          max-width: 600px;
+          width: 100%;
+          position: relative;
+          transform: scale(0.9);
+          opacity: 0;
+          transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .popp.active .popp-content {
+          transform: scale(1);
+          opacity: 1;
+        }
+
+        .close-button {
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+          background: none;
+          border: none;
+          cursor: pointer;
+          color: #a0aec0;
+          transition: color 0.3s ease;
+        }
+
+        .close-button:hover {
+          color: var(--text-color);
+        }
+
+        #poppImage {
+          width: 100%;
+          height: 200px;
+          object-fit: cover;
+          border-radius: 0.25rem;
+          margin-bottom: 1rem;
+        }
+
+        #poppTitle {
+          font-size: 1.5rem;
+          font-weight: bold;
+          margin-bottom: 1rem;
+        }
+
+        #poppDescription {
+          color: #a0aec0;
+          margin-bottom: 1.5rem;
+        }
+
+        .popp-buttons {
+          display: flex;
+          justify-content: flex-end;
+        }
+
+        .github-button {
+          display: inline-flex;
+          align-items: center;
+          background-color: #24292e;
+          color: var(--text-color);
+          text-decoration: none;
+          padding: 0.5rem 1rem;
+          border-radius: 0.25rem;
+          font-weight: bold;
+          transition: background-color 0.3s ease;
+        }
+
+        .github-button:hover {
+          background-color: #1a1e22;
+        }
+
+        .github-button svg {
+          margin-right: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+          .project-card {
+            flex: 0 0 calc(50% - 2rem);
+          }
+        }
+
+        @media (max-width: 480px) {
+          .project-card {
+            flex: 0 0 calc(100% - 2rem);
+          }
+        }
+    </style>
+</head>
+<body>
+    <div class="project-showcase">
+        <h2 class="showcase-title">Our Projects</h2>
+        <div class="project-container">
+            <div class="project-slider" id="projectSlider"></div>
+            <button class="nav-button prev" id="prevButton">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <button class="nav-button next" id="nextButton">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+        </div>
+    </div>
+    <div class="popp" id="popp">
+        <div class="popp-content">
+            <button class="close-button" id="closepopp">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <img src="" alt="Project Image" id="poppImage">
+            <h2 id="poppTitle"></h2>
+            <p id="poppDescription"></p>
+            <div class="popp-buttons">
+                <a href="#" target="_blank" rel="noopener noreferrer" class="github-button" id="githubLink">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                    View on GitHub
+                </a>
+            </div>
+        </div>
+    </div>
+    <script>
+        const projects = [
+          {
+            id: 1,
+            title: "Project Alpha",
+            description: "Project Alpha is an innovative web application that revolutionizes the way users interact with data. Built using React and Node.js, it features real-time updates, intuitive visualizations, and seamless integration with various APIs.",
+            shortDescription: "Innovative web app for data interaction",
+            image: "https://placehold.co/600x400?text=Project+Alpha",
+            githubLink: "https://github.com/example/project-alpha",
+          },
+          {
+            id: 2,
+            title: "Project Beta",
+            description: "Project Beta is a mobile-first e-commerce platform designed to provide a smooth shopping experience. Developed with React Native and backed by a robust GraphQL API, it offers features like personalized recommendations and one-click checkout.",
+            shortDescription: "Mobile-first e-commerce platform",
+            image: "https://placehold.co/600x400?text=Project+Beta",
+            githubLink: "https://github.com/example/project-beta",
+          },
+          {
+            id: 3,
+            title: "Project Gamma",
+            description: "Project Gamma is an AI-powered content management system that helps businesses streamline their content creation and distribution processes. Using machine learning algorithms and natural language processing, it optimizes content for various platforms.",
+            shortDescription: "AI-powered content management system",
+            image: "https://placehold.co/600x400?text=Project+Gamma",
+            githubLink: "https://github.com/example/project-gamma",
+          },
+          {
+            id: 4,
+            title: "Project Delta",
+            description: "Project Delta is a blockchain-based supply chain management solution that ensures transparency and traceability in global logistics. Built on Ethereum, it leverages smart contracts to automate and secure transactions across the supply chain.",
+            shortDescription: "Blockchain-based supply chain solution",
+            image: "https://placehold.co/600x400?text=Project+Delta",
+            githubLink: "https://github.com/example/project-delta",
+          },
+          {
+            id: 5,
+            title: "Project Epsilon",
+            description: "Project Epsilon is a cloud-native DevOps platform that simplifies the deployment and management of microservices. It provides a user-friendly interface for monitoring, scaling, and troubleshooting distributed systems in real-time.",
+            shortDescription: "Cloud-native DevOps platform",
+            image: "https://placehold.co/600x400?text=Project+Epsilon",
+            githubLink: "https://github.com/example/project-epsilon",
+          },
+        ]
+
+        const projectSlider = document.getElementById("projectSlider")
+        const prevButton = document.getElementById("prevButton")
+        const nextButton = document.getElementById("nextButton")
+        const popp = document.getElementById("popp")
+        const poppImage = document.getElementById("poppImage")
+        const poppTitle = document.getElementById("poppTitle")
+        const poppDescription = document.getElementById("poppDescription")
+        const githubLink = document.getElementById("githubLink")
+        const closepopp = document.getElementById("closepopp")
+
+        let currentIndex = 0
+
+        function createProjectCard(project) {
+          const card = document.createElement("div")
+          card.className = "project-card"
+          card.innerHTML = `
+            <div class="project-image" style="background-image: url(${project.image})">
+                <div class="project-number">${project.id}</div>
+            </div>
+            <div class="project-content">
+                <h3 class="project-title">${project.title}</h3>
+                <p class="project-description">${project.shortDescription}</p>
+                <button class="view-project-button" data-id="${project.id}">View Project</button>
+            </div>
+          `
+          return card
+        }
+
+        function renderProjects() {
+          projectSlider.innerHTML = ""
+          projects.forEach((project) => {
+            const card = createProjectCard(project)
+            projectSlider.appendChild(card)
+          })
+        }
+
+        function updateSliderPosition() {
+          const cardWidth = projectSlider.children[0]?.offsetWidth || 0
+          projectSlider.style.transform = `translateX(-${currentIndex * cardWidth}px)`
+        }
+
+        function showpopp(project) {
+          poppImage.src = project.image
+          poppTitle.textContent = project.title
+          poppDescription.textContent = project.description
+          githubLink.href = project.githubLink
+          popp.classList.add("active")
+        }
+
+        function hidepopp() {
+          popp.classList.remove("active")
+        }
+
+        prevButton.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--
+                updateSliderPosition()
+            }
+        })
+
+        nextButton.addEventListener('click', () => {
+            if (currentIndex < projects.length - 3) {
+                currentIndex++
+                updateSliderPosition()
+            }
+        })
+
+        projectSlider.addEventListener('click', (e) => {
+            if (e.target.classList.contains('view-project-button')) {
+                const projectId = Number.parseInt(e.target.dataset.id)
+                const project = projects.find(p => p.id === projectId)
+                if (project) {
+                    showpopp(project)
+                }
+            }
+        })
+
+        closepopp.addEventListener('click', hidepopp)
+
+        popp.addEventListener('click', (e) => {
+            if (e.target === popp) {
+                hidepopp()
+            }
+        })
+
+        // Initial setup
+        renderProjects()
+        updateSliderPosition()
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            updateSliderPosition()
+        })
+    </script>
+</body>
+</html>

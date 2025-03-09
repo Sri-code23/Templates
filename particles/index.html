@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jane Doe - Artist Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main>
+        <section id="hero">
+            <canvas id="particleCanvas"></canvas>
+            <div class="hero-content">
+                <h1>JANE DOE</h1>
+                <p>Visual Artist & Creative Director</p>
+            </div>
+        </section>
+
+        <section id="gallery">
+            <h2>Featured Works</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="/placeholder.svg?height=600&width=400" alt="Art piece 1">
+                    <div class="overlay">
+                        <h3>Ethereal Dreams</h3>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="/placeholder.svg?height=600&width=400" alt="Art piece 2">
+                    <div class="overlay">
+                        <h3>Urban Symphony</h3>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="/placeholder.svg?height=600&width=400" alt="Art piece 3">
+                    <div class="overlay">
+                        <h3>Digital Nostalgia</h3>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="/placeholder.svg?height=600&width=400" alt="Art piece 4">
+                    <div class="overlay">
+                        <h3>Abstract Reality</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio">
+            <div class="portfolio-filters">
+                <button class="filter-btn active" data-category="all">All</button>
+                <button class="filter-btn" data-category="digital">Digital</button>
+                <button class="filter-btn" data-category="paintings">Paintings</button>
+                <button class="filter-btn" data-category="sculptures">Sculptures</button>
+            </div>
+            <div class="portfolio-grid">
+                <!-- Portfolio items will be dynamically added here -->
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>Get in Touch</h2>
+            <p>Interested in collaborating or commissioning a piece? Let's create something amazing together.</p>
+            <form id="contact-form">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit">Send Message</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; <span id="current-year"></span> Jane Doe. All rights reserved.</p>
+        <div class="social-links">
+            <a href="#" class="social-link">Instagram</a>
+            <a href="#" class="social-link">Twitter</a>
+            <a href="#" class="social-link">LinkedIn</a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

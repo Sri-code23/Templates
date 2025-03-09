@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Blog - Dark Theme</title>
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #000000, #1a1a1a, #333333);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1400px;
+      position: relative;
+      padding: 2rem;
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    @media (min-width: 768px) {
+      .blog-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .cards-container {
+      position: relative;
+      height: 300px;
+      perspective: 1000px;
+      transform-style: preserve-3d;
+    }
+
+    @media (min-width: 768px) {
+      .cards-container {
+        height: 500px;
+      }
+    }
+
+    .card {
+      position: absolute;
+      width: 100%;
+      height: 250px;
+      border-radius: 1rem;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+      background-size: cover;
+      background-position: center;
+    }
+
+    @media (min-width: 768px) {
+      .card {
+        height: 400px;
+      }
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3));
+      z-index: 1;
+    }
+
+    .card.active {
+      z-index: 5;
+      transform: scale(1) translateZ(50px);
+      opacity: 1;
+      filter: blur(0);
+    }
+
+    .card:not(.active) {
+      transform: scale(0.9) translateZ(-50px);
+      opacity: 0.3;
+      filter: blur(2px);
+    }
+
+    .card:hover {
+      transform: scale(1.05) translateZ(60px);
+    }
+
+    .card-title {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 0;
+      right: 0;
+      text-align: center;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+      z-index: 2;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      padding: 0 1.5rem;
+    }
+
+    .content-section {
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      padding: 2rem;
+      border-radius: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .content-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(to right, #ffffff, #999999);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      line-height: 1.2;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .content-text {
+      font-size: 1.125rem;
+      line-height: 1.8;
+      color: #e0e0e0;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      transition-delay: 0.1s;
+    }
+
+    .show {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
+    .navigation {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 1rem;
+      z-index: 10;
+    }
+
+    .nav-button {
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .nav-button:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: scale(1.1);
+    }
+
+    .nav-button:active {
+      transform: scale(0.95);
+    }
+
+    @media (max-width: 767px) {
+      .container {
+        padding: 1rem;
+      }
+
+      .content-section {
+        padding: 1.5rem;
+      }
+
+      .content-title {
+        font-size: 1.75rem;
+      }
+
+      .content-text {
+        font-size: 1rem;
+      }
+
+      .nav-button {
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="blog-grid">
+      <div class="cards-container" id="cardsContainer"></div>
+      <div class="content-section">
+        <h2 class="content-title" id="contentTitle"></h2>
+        <p class="content-text" id="contentText"></p>
+      </div>
+    </div>
+    <div class="navigation">
+      <button class="nav-button" id="prevBtn">＜</button>
+      <button class="nav-button" id="nextBtn">＞</button>
+    </div>
+  </div>
+
+  <script>
+    const blogData = [
+      {
+        title: "The Future of AI",
+        content: "Artificial Intelligence is reshaping our world in ways we never imagined. From self-driving cars to advanced medical diagnostics, AI is pushing the boundaries of what's possible.",
+        image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800&h=600"
+      },
+      {
+        title: "Sustainable Living",
+        content: "As climate change becomes an ever-pressing issue, sustainable living practices are more important than ever. Learn how small changes in your daily life can make a big impact.",
+        image: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&q=80&w=800&h=600"
+      },
+      {
+        title: "The Art of Mindfulness",
+        content: "In our fast-paced world, mindfulness offers a path to peace and clarity. Discover techniques to stay present and reduce stress in your everyday life.",
+        image: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&q=80&w=800&h=600"
+      }
+    ];
+
+    let currentIndex = 0;
+    let autoPlayInterval;
+    const cardsContainer = document.getElementById('cardsContainer');
+    const contentTitle = document.getElementById('contentTitle');
+    const contentText = document.getElementById('contentText');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    function createCards() {
+      blogData.forEach((blog, index) => {
+        const card = document.createElement('div');
+        card.className = `card ${index === 0 ? 'active' : ''}`;
+        card.style.backgroundImage = `url('${blog.image}')`;
+        
+        const title = document.createElement('div');
+        title.className = 'card-title';
+        title.textContent = blog.title;
+        
+        card.appendChild(title);
+        card.addEventListener('click', () => {
+          stopAutoPlay();
+          currentIndex = index;
+          updateContent();
+          startAutoPlay();
+        });
+
+        cardsContainer.appendChild(card);
+      });
+    }
+
+    function updateContent() {
+      const cards = document.querySelectorAll('.card');
+      
+      contentTitle.classList.remove('show');
+      contentText.classList.remove('show');
+      
+      setTimeout(() => {
+        contentTitle.textContent = blogData[currentIndex].title;
+        contentText.textContent = blogData[currentIndex].content;
+        contentTitle.classList.add('show');
+        contentText.classList.add('show');
+      }, 300);
+
+      cards.forEach((card, index) => {
+        if (index === currentIndex) {
+          card.classList.add('active');
+        } else {
+          card.classList.remove('active');
+        }
+        
+        const rotation = (index - currentIndex) * 45;
+        card.style.transform = `
+          ${index === currentIndex ? 'scale(1)' : 'scale(0.9)'}
+          rotateY(${rotation}deg)
+          translateZ(${index === currentIndex ? '50px' : '-50px'})
+        `;
+      });
+    }
+
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % blogData.length;
+      updateContent();
+    }
+
+    function prevSlide() {
+      currentIndex = (currentIndex - 1 + blogData.length) % blogData.length;
+      updateContent();
+    }
+
+    function startAutoPlay() {
+      autoPlayInterval = setInterval(nextSlide, 5000);
+    }
+
+    function stopAutoPlay() {
+      clearInterval(autoPlayInterval);
+    }
+
+    // Event Listeners
+    prevBtn.addEventListener('click', () => {
+      stopAutoPlay();
+      prevSlide();
+      startAutoPlay();
+    });
+
+    nextBtn.addEventListener('click', () => {
+      stopAutoPlay();
+      nextSlide();
+      startAutoPlay();
+    });
+
+    // Initialize
+    createCards();
+    updateContent();
+    startAutoPlay();
+
+    // Handle window resize
+    window.addEventListener('resize', updateContent);
+  </script>
+</body>
+</html>

@@ -1,0 +1,226 @@
+*{
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body{
+    background-color: rgb(0, 0, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body::-webkit-scrollbar{
+    display: none; 
+}
+
+
+.container{
+    margin-top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+    gap: 40px;
+    /* border: 1px solid #740000; */
+    background-color: rgb(0, 0, 0);
+    padding: 40px 40px;
+    color: white;
+}
+
+.section{
+    width: 80%;
+    height: 40%;
+    background-color: rgb(0, 0, 0);
+    border: 0.1ex solid grey;
+    padding: 2% 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2%;
+    border-radius: 10px;
+    margin: 10% 0%;
+}
+
+.section:nth-child(2){
+    flex-direction: row-reverse;
+}
+
+.section:nth-child(4){
+    flex-direction: row-reverse;
+}
+
+.image_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 300px;
+    padding: 5px 5px;
+    background-color: transparent;
+    clip-path: polygon(0% 20, 100% 0, 100% 100%, 0 100%);
+    border-radius: 10px;
+}
+
+.image_container:hover .images{
+    transform: scale(0.99);
+}
+
+.images{
+    width: 300px;
+    transition: all 0.4s ease-in-out 0s;
+    height: 300px;
+    background-color: rgb(43, 155, 163);
+    /* box-shadow: 10px 10px 30px 10px #850000; */
+    clip-path: polygon(
+        5% 50%, 
+        10% 10%,
+        50% 0%, 
+        90% 10%,
+        95% 50%,
+        90% 90%,
+        50% 100%,
+        10% 90%
+    );
+    /* border: 10px solid #000000; */
+}
+
+.image_container img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    box-shadow: 10px 10px 30px 10px #850000;
+
+}
+
+.text_container{
+    width: 50%;
+    height: 300px;
+    /* border: 1px solid #000000; */
+    padding: 10px 10px;
+    overflow: hidden;
+}
+
+h1{
+    font-size: 40px;
+}
+
+p{
+    font-size: 18px;
+}
+
+
+
+.animate{
+    animation: fadeanimation 4s forwards;
+    animation-timeline: view();
+}
+@keyframes fadeanimation {
+    from{opacity: 0;}
+    to{opacity: 1;}
+}
+.scale_animate{
+    animation: scaleanimation 4s forwards;
+    animation-timeline: view();
+}
+@keyframes scaleanimation{
+    0%{transform: scale(0.5);}
+    50%{transform: scale(1);}
+    100%{transform: scale(0.5);}
+}
+.translate_animate{
+    animation: translateanimation 4s forwards;
+    animation-timeline: view();
+}
+@keyframes translateanimation {
+    0%{transform: translate(-250px);}
+    50%{ transform: translate(0px);}
+    100%{transform: translate(-250px);}
+}
+.fa_tra_y_animate{
+    animation: fade_translate_y_animation 1s forwards;
+    animation-timeline: view();
+}
+@keyframes fade_translate_y_animation{
+    from{transform: translateY(-90px);}
+    to{transform: translateY(0px)}
+}
+
+
+
+@media (max-width:480px) {
+    .section{
+        width: 300px;
+        height: 300px;
+        flex-direction: column;
+        gap: 1%;
+        border-radius: 10px;
+        margin: 60% 0%;
+        overflow: hidden;
+        padding: 0% 0%;
+    }
+    .image_container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        background-color: rgb(47, 47, 75);
+        position: relative;
+    }
+
+    .image_container::before{
+        position: absolute;
+        content: "photo details";
+        font-size: 20px;
+        font-weight: 600;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1;
+        background-color: rgb(26, 26, 26);
+        width:300px;
+        height: 500px;
+        transition: all 0.5s ease-in-out;
+        transform:translateY(-460px);
+    }
+    .image_container:active:before{
+        transform: translateY(0px);
+    }
+
+    .text_container{
+        display: none;
+    }
+    .images{
+        width: 100%;
+        transition: all 0.4s ease-in-out 0s;
+        height: 100%;
+        background-color: rgb(43, 155, 163);
+    }    
+    .image_container img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        box-shadow: 10px 10px 30px 10px #850000;
+    
+    }
+    
+    .text_container{
+        width: 100%;
+        height: 150px;
+        padding: 10px 10px;
+        overflow: hidden;
+    }
+
+    h1{
+        display: none;
+    }
+    
+    p{
+        display: none;
+
+    }
+    
+}
