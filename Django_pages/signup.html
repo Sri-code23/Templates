@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" 
+     content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="color-wave"></div>
+    <section>
+        <div class="grid">
+            <script>
+                for(let i=0;i<400;i++){
+                    document.write('<div class="grid-item"></div>');
+                }
+            </script>
+        </div>
+        <div class="signin">
+                <h3>Welcome</h3>
+                <form id="contact-form"  method="POST">
+                    <div class="inputbox">
+                        <input type="email"  placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="inputbox">
+                        <input type="password" placeholder="create password" required minlength="8">
+                        <p>(passsword must be 8 characters long)</p>
+                    </div>
+
+                    <a href="">
+                    <button type="submit" class="btn" 
+                        style="font-family: Arial, Helvetica, sans-serif;">
+                        <b>Sign Up</b>
+                    </button>
+                    </a>
+                        
+                    <div class="sign-up">
+                        <p>Already have an  account? 
+                        <a href="login.html" >Log In</a>
+                        </p>
+                    </div>
+                </form>    
+            </div>
+    </section>
+</body>
+</html>

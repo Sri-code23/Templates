@@ -1,0 +1,239 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+
+body{
+    background: linear-gradient(to-right,#03b470,#12946d);
+}
+
+
+
+/* ? section containing all grid and log in boix*/
+section {
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(45deg,#000000,#000000) 20%;
+    overflow: hidden;
+    z-index:1;
+}
+
+
+/*Animation
+.color-wave{
+    width: 600%;
+    height: 10%;
+    position: relative;
+    top: -50%;
+    left: -50%;
+    background-size: 100% 100%;
+    animation: wave-transform 10s infinite linear;
+    z-index: 3;
+}
+
+@keyframes wave-transform
+{
+    0%{
+        transform: scale(1) rotate(0deg);
+        background: linear-gradient(45deg, #000000,#007946);
+    }
+    50%{
+        transform: scale(5) rotate(100deg);
+        background: linear-gradient(45deg, #00a876,#000000);
+    }
+    100%{
+        transform: scale(1) rotate(180deg);
+        background: linear-gradient(45deg, #000000,#009c5b);
+    }
+}
+*/
+
+/* ? Grid lines */
+.grid
+{
+    position: absolute;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(25,1fr);
+    grid-template-rows: repeat(10,1fr);
+    gap: 0px;
+    z-index: 0;
+    padding-top: 0;
+    filter: blur(1px);
+}
+
+.grid div{
+    transition: background 1.5s ease-out, box-shadow 0.5s ease-out;
+}
+
+.grid div:hover{
+    background: #03b470;
+    transition: background 0s ease-out, box-shadow 0s ease-out;
+    box-shadow: 
+    0px 0px 10px #03b470,
+    0px 0px 50px #03b470,
+    0px 0px 60px #03b470,
+    0px 0px 120px #03b470,;
+    filter: blur(0px);
+    
+}
+
+.grid-item{
+    width: 50px;
+    height: 50px;
+    background: none;
+    border: 1px #03b470;
+    border-style: groove;
+}
+
+
+/* ? Sign in box */
+.signin{
+    position: relative;
+    z-index:6;
+    width: 350px;
+    padding: 20px;
+    background: rgb(7, 7, 7);
+    backdrop-filter: blur(1px);
+    border-radius: 4px;
+    box-shadow:0 0 25px #000000,0 0 50px #000000,
+    0 0 100px #000000,0 0 200px #000000,0 0 400px #000000;
+
+}
+.signin h3{
+    color:#ffffff;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+
+/* ? input textbox */
+
+.inputbox {
+    position: relative;
+    margin-bottom:15px;
+    padding-right: 20px;;
+    
+}
+.inputbox input{
+    width: 100%;
+    padding:10px;
+    font-size:16px;
+    color:#ffffff;
+    border-radius: 15px;
+    border: 1px solid #000000;
+    background-color: #000000;
+}
+
+.inputbox input:focus,
+.inputbox textarea:focus {
+    border: 1px solid #03b470;
+    background-color: #000000;
+    outline:none;
+}
+
+.inputbox input:active{
+    outline: #0e9c79;
+    border: #03b470;
+}
+/*? input field for signup.html */
+.inputbox p{
+    color:#ffffff;
+    text-align:center;
+    margin-top: 9px;;
+}
+
+/*? Login button*/
+.signin a{
+    text-decoration: none;
+}
+.btn{
+    display: flex;
+    justify-content: center;
+    color:#000000;
+    font-size: large;
+    font-style: bold;
+    padding: 0.5rem 1rem;
+    width: 100%;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    margin-top: 1rem;
+    border: none;
+}
+
+.btn:hover {
+    background-color:#03b470;
+    transform: translateY(1px);
+    box-shadow: 0 0px 0px  #0e8575;
+}
+
+
+/* ?sign up link*/
+.sign-up{
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    color: #ffffff;
+}
+
+.sign-up a{
+    text-decoration: none;
+    color: #03b470;
+    font-size: large;
+    font-weight: 600;
+}
+
+/*?Forgot password*/
+.links {
+    display:flex;
+    justify-content: flex-end;
+    margin-top:2px;
+    font-size: 16px;
+    
+}
+
+.links a{
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 300;
+}
+
+.links a:hover{
+    color: #03b470;
+}
+
+
+/*?Mobile resolution size adaption*/
+@media (max-width: 480px){
+    .signin{
+        margin-left: 30px ;
+        margin-right: 30px;
+    }
+
+    .grid
+    {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(10,1fr);
+    grid-template-rows: repeat(20,1fr);
+    gap: 0px;
+    z-index: 0;
+    padding-top: 0;
+    cursor: none;
+    background: linear-gradient(to bottom right, #0f0f0f, #000000);
+    }
+}
+    
+
+
+
